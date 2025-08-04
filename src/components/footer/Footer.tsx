@@ -101,8 +101,8 @@ const Footer: React.FC = () => {
               </a>
             </li>
             <li>
-              <a href="mailto:mels.vagharshyandev@gmail.com" className="hover:underline">
-                vahan.vardanyan@gmail.com
+              <a href="mailto:vahan.vardanyan.97@bk.ru" className="hover:underline">
+                vahan.vardanyan.97@bk.ru
               </a>
             </li>
           </ul>

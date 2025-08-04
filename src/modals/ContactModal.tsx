@@ -61,8 +61,8 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
       <ul className="space-y-4 text-base md:text-lg text-gray-800">
         <li className="flex items-center gap-3 py-1">
           <FaEnvelope className="text-black text-xl" />
-          <a href="mailto:mels.vagharshyandev@gmail.com" className="hover:underline">
-            mels.vagharshyandev@gmail.com
+          <a href="mailto:vahan.vardanyan.97@bk.ru" className="hover:underline">
+            vahan.vardanyan.97@bk.ru
           </a>
         </li>
         <li className="flex items-center gap-3 py-1">

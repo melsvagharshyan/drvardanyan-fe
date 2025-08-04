@@ -50,7 +50,9 @@ const Header = () => {
       aria-label="Site header"
       className="w-full bg-cover bg-center relative overflow-hidden"
       style={{
-        backgroundImage: `url(https://i.pinimg.com/1200x/71/6c/52/716c52a15d910375bff29750833ee0a1.jpg)`,
+        backgroundImage: isMobile
+          ? `url(https://i.pinimg.com/1200x/71/6c/52/716c52a15d910375bff29750833ee0a1.jpg)`
+          : `url(https://res.cloudinary.com/dxfqf6fgv/image/upload/v1746817119/header_tm8g0a.jpg)`,
       }}
     >
       <Navbar />
@@ -76,7 +78,7 @@ const Header = () => {
         <motion.p
           custom={1}
           variants={textVariants}
-          className={` font-medium font-serif ${isMobile ? 'text-md text-center' : 'text-xl ml-4'}`}
+          className={` font-medium font-sans ${isMobile ? 'text-md text-center' : 'text-xl ml-4'}`}
           style={{
             textShadow: '0 4px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.5)',
           }}
