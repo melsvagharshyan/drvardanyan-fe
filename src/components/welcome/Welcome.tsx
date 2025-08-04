@@ -5,8 +5,20 @@ import { useNavigate } from 'react-router-dom'
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 1 } },
-  exit: { opacity: 0, transition: { duration: 0.5 } },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.6,
+      ease: 'easeInOut',
+      when: 'beforeChildren',
+      staggerChildren: 0.15,
+      delayChildren: 0.15,
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.4, ease: 'easeInOut' },
+  },
 }
 
 const textVariants = {
@@ -14,7 +26,11 @@ const textVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { type: 'spring', stiffness: 80, damping: 12 },
+    transition: {
+      type: 'spring',
+      stiffness: 100,
+      damping: 10,
+    },
   },
 }
 
@@ -24,13 +40,13 @@ const Welcome = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate('/home')
-    }, 3500)
+    }, 2500)
     return () => clearTimeout(timer)
   }, [navigate])
 
   return (
     <motion.div
-      className="relative h-screen pb-30  w-full bg-gradient-to-br from-cyan-500 via-cyan-600 to-cyan-700 flex flex-col items-center justify-center px-6 text-white text-center"
+      className="relative h-screen w-full bg-gradient-to-br from-cyan-500 via-cyan-600 to-cyan-700 flex flex-col items-center justify-center px-6 text-white text-center"
       variants={containerVariants}
       initial="hidden"
       animate="visible"
@@ -41,8 +57,7 @@ const Welcome = () => {
         backgroundSize: 'cover',
       }}
     >
-      <div className="flex items-center gap-3 mb-4">
-        {' '}
+      <motion.div className="flex items-center gap-3 mb-4" variants={textVariants}>
         <img
           src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754223427/vahan/download_v2dtpq.svg"
           alt="Dr. Vardanyan Logo"
@@ -56,12 +71,11 @@ const Welcome = () => {
         >
           Dr. Vardanyan
         </span>
-      </div>
+      </motion.div>
+
       <motion.p
-        className="uppercase tracking-widest mb-4 text-cyan-200  text-sm md:text-base font-semibold"
+        className="uppercase tracking-widest mb-4 text-cyan-200 text-sm md:text-base font-semibold"
         variants={textVariants}
-        initial="hidden"
-        animate="visible"
       >
         Ваша улыбка — наша забота
       </motion.p>
@@ -69,8 +83,6 @@ const Welcome = () => {
       <motion.h1
         className="text-5xl mb-60 md:text-7xl font-extrabold drop-shadow-lg"
         variants={textVariants}
-        initial="hidden"
-        animate="visible"
       >
         Добро пожаловать
       </motion.h1>
