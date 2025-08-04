@@ -10,10 +10,11 @@ const defaultAvatar =
   'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1746967371/orig_sxg7yl.svg'
 
 const Recommendations = () => {
-  const isMobile = useMediaQuery({ query: '(max-width: 1140px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
   const { data: recommendations } = useGetRecommendationsQuery()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+
   const sliderSettings = useMemo(
     () => ({
       infinite: true,
@@ -31,15 +32,11 @@ const Recommendations = () => {
   return (
     <section
       id="recommendations"
-      className="w-full bg-gradient-to-r from-white to-cyan-200 py-20 px-4 sm:px-6 lg:px-8"
+      className="w-full bg-gradient-to-r from-white to-cyan-200 py-16 px-4 sm:px-6 lg:px-8"
     >
-      <header className="max-w-screen-xl mx-auto text-center mb-12">
-        <h2
-          className={`${
-            isMobile ? 'text-2xl' : 'text-4xl'
-          } font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text inline-block`}
-        >
-          Отзывы наших пациентов
+      <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
+        <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
+          Отзывы пациентов
         </h2>
       </header>
 
@@ -52,19 +49,19 @@ const Recommendations = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: 'easeOut' }}
               viewport={{ once: true }}
-              className="rounded-3xl px-8 py-10 max-w-3xl mx-auto flex flex-col justify-center items-center text-center"
+              className="rounded-3xl px-6 py-8 sm:px-8 sm:py-10 mx-auto flex flex-col justify-center items-center text-center max-w-sm sm:max-w-md"
             >
               <figure className="flex flex-col items-center">
                 <img
                   src={rec.image?.url ? rec.image?.url : defaultAvatar}
                   alt={`Portrait of ${rec.fullName}`}
-                  className="w-30 h-30 rounded-full object-cover mb-4"
+                  className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover mb-4"
                 />
                 <figcaption className="text-center">
-                  <h3 className="text-lg font-bold text-gray-800">{rec.fullName}</h3>
+                  <h3 className="text-base sm:text-lg font-bold text-gray-800">{rec.fullName}</h3>
                 </figcaption>
               </figure>
-              <blockquote className="text-gray-600 text-sm mb-5 leading-relaxed italic">
+              <blockquote className="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed italic">
                 "{rec.recommendation}"
               </blockquote>
               <div className="flex gap-1 justify-center">
@@ -81,10 +78,11 @@ const Recommendations = () => {
           ))}
         </Slider>
       </div>
-      <div className="mt-16 flex justify-center">
+
+      <div className="mt-10 sm:mt-16 flex justify-center">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="relative overflow-hidden shadow-lg hover:shadow-2xl duration-300 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-6 rounded-full font-semibold transition-all group"
+          className="relative overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-6 rounded-full font-semibold group"
         >
           <span className="relative z-10">Оставить отзыв</span>
           <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
