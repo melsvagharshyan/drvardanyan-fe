@@ -20,7 +20,7 @@ const AppRoutes = () => useRoutes(appRoutes)
 
 const AppContent = () => {
   const { isContactModalOpen, closeContactModal } = useContactModal()
-  
+
   const [hasVisited, setHasVisited] = useState(
     () => sessionStorage.getItem('hasVisited') === 'true',
   )
