@@ -39,7 +39,7 @@ const Recommendations = () => {
             isMobile ? 'text-2xl' : 'text-4xl'
           } font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text inline-block`}
         >
-          Рекомендации
+          Отзывы наших пациентов
         </h2>
       </header>
 
@@ -86,7 +86,7 @@ const Recommendations = () => {
           onClick={() => setIsModalOpen(true)}
           className="relative overflow-hidden shadow-lg hover:shadow-2xl duration-300 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-6 rounded-full font-semibold transition-all group"
         >
-          <span className="relative z-10">Оставить рекомендацию</span>
+          <span className="relative z-10">Оставить отзыв</span>
           <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
         </button>
       </div>

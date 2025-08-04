@@ -48,10 +48,10 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
   const getErrorText = (message: string) => {
     const errorTexts: { [key: string]: string } = {
       'Full name is required.': 'Полное имя обязательно.',
-      'Recommendation text is required.': 'Текст рекомендации обязателен.',
+      'Recommendation text is required.': 'Текст отзыва обязателен.',
       'Please select a rating.': 'Пожалуйста, выберите оценку.',
       'Recommendation cannot be longer than 300 characters.':
-        'Рекомендация не может быть длиннее 300 символов.',
+        'Отзыв не может быть длиннее 300 символов.',
       'Full name cannot be longer than 40 characters.':
         'Полное имя не может быть длиннее 40 символов.',
     }
@@ -64,7 +64,7 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
       .then(async () => {
         await sendToBot(data?.fullName)
 
-        toast.success('Рекомендация успешно отправлена!', {
+        toast.success('Отзыв успешно отправлен!', {
           position: 'top-center',
           autoClose: 1500,
           hideProgressBar: false,
@@ -134,7 +134,7 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
       >
         <span className="flex justify-center w-full">
           <h2 className="text-2xl inline-block text-center font-bold mb-8 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
-            Оставить рекомендацию
+            Оставить отзыв
           </h2>
         </span>
         <form
@@ -153,7 +153,7 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Текст рекомендации</label>
+            <label className="block mb-1 font-medium">Текст отзыва</label>
             <textarea
               {...register('recommendation')}
               className="w-full h-28 resize-none rounded-2xl px-4 py-2 border border-gray-300 shadow-inner focus:outline-none focus:ring-1 focus:ring-cyan-300 transition-all duration-300 placeholder:italic placeholder:text-gray-400"
