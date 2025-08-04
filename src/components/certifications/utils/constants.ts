@@ -2,31 +2,16 @@ export const certifications = [
   {
     id: 1,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754153280/certificates/CertificateOfCompletion_Microsoft_Azure_AI_Essentials_Professional_Certificate_by_Microsoft_and_LinkedIn_page-0001_xxxaoc.jpg',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754310275/vahan/Blue_Minimalist_Certificate_Of_Achievement_zjdgtv.png',
   },
   {
     id: 2,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1747163574/certificates/Blue_Wavy_Modern_Certificate_Template_on_White_Background_1_ipsrtr.png',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754311799/vahan/White_and_Grey_Bordered_Simple_Certificate_of_Appreciation_dvjpqd.png',
   },
   {
     id: 3,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1747163574/certificates/Green_White_Simple_Modern_Recognition_Certificate_sgy92a.png',
-  },
-  {
-    id: 4,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1747163574/certificates/mels-web-design_mo5ph6.png',
-  },
-  {
-    id: 5,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1747308451/certificates/1739296333137_yuxsg4.jpg',
-  },
-  {
-    id: 6,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1747309408/certificates/Screenshot_2025-05-15_154110_is91fk.png',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754310926/vahan/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_sl65mz.png',
   },
 ]
