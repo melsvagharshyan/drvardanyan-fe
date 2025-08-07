@@ -8,7 +8,8 @@ const About = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 1140px)' })
   const { openContactModal } = useContactModal()
 
-  const VahanImage = 'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1746817575/mels_ywn89e.jpg'
+  const VahanImage =
+    'https://t3.ftcdn.net/jpg/11/97/74/70/360_F_1197747043_TZl9Tw6tjWTGmSbJq1Z6Fd4GUCdNS8DX.jpg'
 
   const shareCV = async () => {
     try {
