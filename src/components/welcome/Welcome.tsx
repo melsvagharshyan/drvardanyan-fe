@@ -39,7 +39,7 @@ const Welcome = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigate('/home')
+      navigate('/')
     }, 2500)
     return () => clearTimeout(timer)
   }, [navigate])
