@@ -3,7 +3,14 @@ import ReactDOM from 'react-dom'
 import { useMediaQuery } from 'react-responsive'
 import { useSpring, animated } from '@react-spring/web'
 import { useDrag } from '@use-gesture/react'
-import { FaPhone, FaInstagram, FaEnvelope, FaTelegramPlane, FaWhatsapp, FaShare } from 'react-icons/fa'
+import {
+  FaPhone,
+  FaInstagram,
+  FaEnvelope,
+  FaTelegramPlane,
+  FaWhatsapp,
+  FaShare,
+} from 'react-icons/fa'
 
 interface Props {
   isOpen: boolean
@@ -85,7 +92,7 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
     ctx.font = 'bold 48px Arial, sans-serif'
     ctx.textAlign = 'center'
     ctx.fillText('Вахан Варданян', canvas.width / 2, 120)
-    
+
     // Add subtitle
     ctx.fillStyle = '#00838f'
     ctx.font = '24px Arial, sans-serif'
@@ -95,25 +102,25 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
     ctx.fillStyle = '#424242'
     ctx.font = '20px Arial, sans-serif'
     ctx.textAlign = 'left'
-    
+
     const contacts = [
       { icon: '📧', text: 'vahan.vardanyan.97@bk.ru' },
       { icon: '📱', text: '+7 (910) 166-01-02' },
       { icon: '💬', text: 'Telegram: @Vahan970' },
       { icon: '📸', text: 'Instagram: @vahan_2906' },
-      { icon: '📞', text: 'WhatsApp: +37494541615' }
+      { icon: '📞', text: 'WhatsApp: +37494541615' },
     ]
 
     let yPos = 250
-    contacts.forEach((contact, index) => {
+    contacts.forEach((contact) => {
       ctx.fillStyle = '#006064'
       ctx.font = '24px Arial, sans-serif'
       ctx.fillText(contact.icon, 200, yPos)
-      
+
       ctx.fillStyle = '#424242'
       ctx.font = '20px Arial, sans-serif'
       ctx.fillText(contact.text, 250, yPos)
-      
+
       yPos += 50
     })
 
@@ -129,7 +136,11 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
     ctx.fillStyle = '#757575'
     ctx.font = '18px Arial, sans-serif'
     ctx.textAlign = 'center'
-    ctx.fillText('Запишитесь на консультацию и начните путь к красивой улыбке!', canvas.width / 2, 680)
+    ctx.fillText(
+      'Запишитесь на консультацию и начните путь к красивой улыбке!',
+      canvas.width / 2,
+      680,
+    )
 
     // Add website or additional info
     ctx.fillStyle = '#00bcd4'
@@ -152,7 +163,7 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
         await navigator.share({
           title: 'Вахан Варданян - Стоматолог-ортодонт',
           text: 'Контактная информация стоматолога-ортодонта Вахана Варданяна',
-          files: [file]
+          files: [file],
         })
       } else {
         // Fallback for browsers that don't support Web Share API
