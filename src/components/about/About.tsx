@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion'
 import { useMediaQuery } from 'react-responsive'
 import { useContactModal } from '~/contexts/ContactModalContext'
-import { Download } from 'lucide-react'
-import cvUrl from '~/assets/docs/Mels-Web-CV.pdf'
 
 const About = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 1140px)' })
@@ -10,22 +8,6 @@ const About = () => {
 
   const VahanImage =
     'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754586434/vahan/2025-08-07_10.06.37_mxr8hm.jpg'
-
-  const shareCV = async () => {
-    try {
-      const response = await fetch(cvUrl)
-      const blob = await response.blob()
-      const file = new File([blob], 'Mels-Web-CV.pdf', { type: 'application/pdf' })
-
-      if (navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({ files: [file] })
-      } else {
-        alert('Sharing is not supported on this device or browser.')
-      }
-    } catch (error) {
-      console.error('Error sharing CV:', error)
-    }
-  }
 
   return (
     <section
