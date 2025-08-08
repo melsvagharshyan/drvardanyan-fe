@@ -25,3 +25,16 @@ export const certifications = [
       'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754657344/vahan/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_fypizn.png',
   },
 ]
+
+export const certificationsLarge = [
+  {
+    id: 1,
+    image:
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754660272/vahan/2025-08-08_06.36.51_kyk6dh.jpg',
+  },
+  {
+    id: 2,
+    image:
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754660272/vahan/2025-08-08_06.36.51_kyk6dh.jpg',
+  },
+]
