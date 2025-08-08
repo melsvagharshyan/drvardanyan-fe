@@ -15,6 +15,7 @@ import Routine from '~/components/routine/Routine'
 // const ProjectPage = lazy(() => import('~/pages/project-page/ProjectPage'))
 const ExperiencePage = lazy(() => import('~/pages/experience-page/ExperiencePage'))
 const RoutinePage = lazy(() => import('~/pages/routine-page/RoutinePage'))
+const ClientResultsPage = lazy(() => import('~/pages/client-results-page/ClientResultsPage'))
 const NotFoundPage = lazy(() => import('~/pages/404/Page404'))
 
 export const appRoutes: RouteObject[] = [
@@ -43,6 +44,10 @@ export const appRoutes: RouteObject[] = [
   {
     path: '/routine',
     element: <RoutinePage />,
+  },
+  {
+    path: '/client-results',
+    element: <ClientResultsPage />,
   },
   {
     path: '*',

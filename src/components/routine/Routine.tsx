@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import { useMediaQuery } from 'react-responsive'
 import { useMemo } from 'react'
 import Slider from 'react-slick'
-import { routineImages } from './utils/constants'
+import { routineImages, clientResults } from './utils/constants'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
@@ -37,6 +37,10 @@ const Routine = () => {
 
   const handleShowMore = () => {
     navigate('/routine')
+  }
+
+  const handleShowMoreResults = () => {
+    navigate('/client-results')
   }
 
   return (
@@ -82,6 +86,76 @@ const Routine = () => {
           <span className="relative z-10">Показать больше</span>
           <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
         </button>
+      </div>
+
+      {/* Client Results Section */}
+      <div className="mt-20 pt-16 border-t border-cyan-200">
+        <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
+          <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
+            Результаты наших пациентов
+          </h2>
+          <p className="text-gray-600 text-base sm:text-lg mt-4 max-w-2xl mx-auto">
+            Фотографии до и после лечения - наглядное подтверждение качества нашей работы
+          </p>
+        </header>
+
+        <div className="max-w-screen-xl mx-auto">
+          <Slider {...sliderSettings}>
+            {clientResults.map((item) => (
+              <div key={item.id} className="px-2">
+                <div className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
+                  {/* Before/After Images Container */}
+                  <div className="relative h-80 sm:h-96 md:h-[28rem]">
+                    {/* Before Image */}
+                    <div className="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
+                      <img
+                        src={item.before}
+                        alt={`До лечения - ${item.title}`}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                        ДО
+                      </div>
+                    </div>
+                    {/* After Image */}
+                    <div className="absolute bottom-0 left-0 w-full h-1/2 overflow-hidden">
+                      <img
+                        src={item.after}
+                        alt={`После лечения - ${item.title}`}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      />
+                      <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                        ПОСЛЕ
+                      </div>
+                    </div>
+                    {/* Divider Line */}
+                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white transform -translate-y-1/2 z-10"></div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-4">
+                    <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
+                    <p className="text-gray-600 text-sm mb-2">{item.description}</p>
+                    <div className="flex justify-between text-xs text-gray-500">
+                      <span>Возраст: {item.patientAge}</span>
+                      <span>Лечение: {item.treatmentDuration}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </Slider>
+        </div>
+
+        <div className="mt-10 sm:mt-16 flex justify-center">
+          <button
+            onClick={handleShowMoreResults}
+            className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-green-200 to-green-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
+          >
+            <span className="relative z-10">Смотреть все результаты</span>
+            <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+          </button>
+        </div>
       </div>
     </section>
   )
