@@ -50,10 +50,10 @@ const Routine = () => {
     >
       <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
         <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
-          Наша рутина
+          Наш рабочий процесс
         </h2>
         <p className="text-gray-600 text-base sm:text-lg mt-4 max-w-2xl mx-auto">
-          Заглянем за кулисы работы клиники Варданян
+          Познакомьтесь с профессиональными стандартами и методиками современной стоматологии
         </p>
       </header>
 
@@ -113,7 +113,7 @@ const Routine = () => {
                         alt={`До лечения - ${item.title}`}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                      <div className="absolute top-2 left-2 bg-black/40 text-white px-2 py-1 rounded text-xs font-semibold">
                         ДО
                       </div>
                     </div>
@@ -124,14 +124,14 @@ const Routine = () => {
                         alt={`После лечения - ${item.title}`}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
-                      <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs font-semibold">
+                      <div className="absolute top-2 left-2 bg-black/40 text-white px-2 py-1 rounded text-xs font-semibold">
                         ПОСЛЕ
                       </div>
                     </div>
                     {/* Divider Line */}
                     <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white transform -translate-y-1/2 z-10"></div>
                   </div>
-                  
+
                   {/* Content */}
                   <div className="p-4">
                     <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
@@ -150,7 +150,7 @@ const Routine = () => {
         <div className="mt-10 sm:mt-16 flex justify-center">
           <button
             onClick={handleShowMoreResults}
-            className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-green-200 to-green-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
+            className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
           >
             <span className="relative z-10">Смотреть все результаты</span>
             <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>

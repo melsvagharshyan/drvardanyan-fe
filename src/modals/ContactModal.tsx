@@ -67,8 +67,8 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
         </li>
         <li className="flex items-center gap-3 py-1">
           <FaPhone className="text-black text-xl" />
-          <a href="tel:+37494541615" className="hover:underline">
-            +374 94541615
+          <a href="tel:+79101660102" className="hover:underline">
+            +7 (910) 166-01-02
           </a>
         </li>
         <li className="flex items-center gap-3 py-1">

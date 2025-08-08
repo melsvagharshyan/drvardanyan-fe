@@ -6,10 +6,11 @@ import { CiMenuFries } from 'react-icons/ci'
 import { useDrag } from '@use-gesture/react'
 import { useSpring, animated } from '@react-spring/web'
 import { ContactModal } from '~/modals/ContactModal'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   const [active, setActive] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [open, setOpen] = useState(false)
@@ -25,7 +26,17 @@ const Navbar = () => {
     }
 
     if (!isHomePage) {
-      window.location.href = `/#${href}`
+      navigate('/')
+      // Use setTimeout to ensure navigation completes before scrolling
+      setTimeout(() => {
+        const element = document.getElementById(href)
+        if (element) {
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          })
+        }
+      }, 100)
     }
   }
 
@@ -123,26 +134,54 @@ const Navbar = () => {
         isNavActive ? 'bg-gradient-to-r from-white to-cyan-200 shadow-md' : 'bg-transparent',
       )}
     >
-      <ScrollLink
-        offset={-80}
-        to="navbar"
-        className="cursor-pointer flex items-center gap-2 group"
-        aria-label="Homepage"
-      >
-        <img
-          src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754223427/vahan/download_v2dtpq.svg"
-          alt="Dr. Vardanyan Logo"
-          width={50}
-          height={50}
-          className={clsx('transition-transform duration-300 group-hover:rotate-6')}
-        />
-        <span
-          style={{ fontFamily: '"Parisienne", cursive' }}
-          className="text-2xl font-bold bg-gradient-to-r from-[#2af1f4] via-[#0284e4] to-[#2af1f4] text-transparent bg-clip-text transition-all duration-300"
+      {isHomePage ? (
+        <ScrollLink
+          offset={-80}
+          to="navbar"
+          className="cursor-pointer flex items-center gap-2 group"
+          aria-label="Homepage"
         >
-          Dr. Vardanyan
-        </span>
-      </ScrollLink>
+          <img
+            src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754223427/vahan/download_v2dtpq.svg"
+            alt="Dr. Vardanyan Logo"
+            width={50}
+            height={50}
+            className={clsx('transition-transform duration-300 group-hover:rotate-6')}
+          />
+          <span
+            style={{ fontFamily: '"Parisienne", cursive' }}
+            className="text-2xl font-bold bg-gradient-to-r from-[#2af1f4] via-[#0284e4] to-[#2af1f4] text-transparent bg-clip-text transition-all duration-300"
+          >
+            Dr. Vardanyan
+          </span>
+        </ScrollLink>
+      ) : (
+        <button
+          onClick={() => {
+            navigate('/')
+            // Scroll to top after navigation
+            setTimeout(() => {
+              window.scrollTo(0, 0)
+            }, 100)
+          }}
+          className="cursor-pointer flex items-center gap-2 group"
+          aria-label="Homepage"
+        >
+          <img
+            src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754223427/vahan/download_v2dtpq.svg"
+            alt="Dr. Vardanyan Logo"
+            width={50}
+            height={50}
+            className={clsx('transition-transform duration-300 group-hover:rotate-6')}
+          />
+          <span
+            style={{ fontFamily: '"Parisienne", cursive' }}
+            className="text-2xl font-bold bg-gradient-to-r from-[#2af1f4] via-[#0284e4] to-[#2af1f4] text-transparent bg-clip-text transition-all duration-300"
+          >
+            Dr. Vardanyan
+          </span>
+        </button>
+      )}
 
       <div className="flex gap-10 items-center">
         <ul className="hidden md:flex gap-10 items-center" role="menubar">

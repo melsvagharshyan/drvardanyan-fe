@@ -98,16 +98,6 @@ const About = () => {
                 >
                   СВЯЗАТЬСЯ СО МНОЙ
                 </motion.button>
-                <motion.a
-                  href={cvUrl}
-                  download
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="cursor-pointer px-8 py-4 text-lg font-semibold text-gray-800 border-1 border-cyan-300 rounded-full shadow-xl flex items-center justify-center gap-2 hover:border-white hover:from-cyan-200 hover:to-white hover:text-white hover:bg-cyan-200 w-full max-w-3xs"
-                >
-                  <Download className="w-5 h-5" />
-                  Скачать резюме
-                </motion.a>
               </div>
             </motion.article>
           ) : (
@@ -147,15 +137,6 @@ const About = () => {
                 >
                   СВЯЗАТЬСЯ СО МНОЙ
                 </motion.button>
-                <motion.a
-                  onClick={shareCV}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 cursor-pointer text-lg font-semibold text-gray-800 border-1 border-cyan-300 rounded-full shadow-xl flex items-center justify-center gap-2 hover:border-white hover:from-cyan-200 hover:to-white hover:text-white hover:bg-cyan-200 w-full max-w-3xs"
-                >
-                  <Download className="w-5 h-5" />
-                  Скачать резюме
-                </motion.a>
               </div>
             </article>
           )}

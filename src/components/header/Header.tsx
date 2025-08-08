@@ -66,7 +66,7 @@ const Header = () => {
             textShadow: '0 4px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,255,255,0.5)',
           }}
         >
-          +7 (495) 123-45-67
+          +7 (910) 166-01-02
         </motion.p>
 
         <motion.p

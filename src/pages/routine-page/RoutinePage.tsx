@@ -34,11 +34,12 @@ const RoutinePage = () => {
           {/* Page Title */}
           <header className="text-center mb-12">
             <h1 className="text-3xl sm:text-5xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text mb-4">
-              Наша рутина
+              Наш рабочий процесс
             </h1>
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
-              Детальный взгляд на ежедневную работу клиники Варданян. Каждый день мы следуем строгим
-              протоколам для обеспечения наилучшего качества лечения.
+              Детальный обзор профессиональных стандартов и методик современной стоматологии. Каждый
+              этап работы соответствует международным протоколам для обеспечения высочайшего
+              качества лечения.
             </p>
           </header>
 
@@ -65,25 +66,6 @@ const RoutinePage = () => {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Call to Action */}
-          <div className="text-center mt-16">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">
-                Хотите стать частью нашей команды?
-              </h3>
-              <p className="text-gray-600 mb-6">
-                Присоединяйтесь к нам и станьте частью профессиональной команды клиники Варданян
-              </p>
-              <button
-                onClick={handleBack}
-                className="relative cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
-              >
-                <span className="relative z-10">Связаться с нами</span>
-                <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-// Our Routine images - you can replace these URLs with your actual clinic images
+// Our Working Process images - you can replace these URLs with your actual clinic images
 export const routineImages = [
   {
     id: 1,
@@ -30,7 +30,7 @@ export const routineImages = [
   },
 ]
 
-// Extended images for the detailed routine page
+// Extended images for the detailed working process page
 export const detailedRoutineImages = [
   {
     id: 1,
@@ -122,39 +122,4 @@ export const clientResults = [
 ]
 
 // Extended client results for detailed page
-export const detailedClientResults = [
-  ...clientResults,
-  {
-    id: 7,
-    before:
-      'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=400&fit=crop&crop=center',
-    after:
-      'https://images.unsplash.com/photo-1594824275771-b79160c0a3e8?w=400&h=400&fit=crop&crop=center',
-    title: 'Комплексное лечение',
-    description: 'Полная реабилитация полости рта',
-    patientAge: '52 года',
-    treatmentDuration: '18 месяцев',
-  },
-  {
-    id: 8,
-    before:
-      'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&h=400&fit=crop&crop=center',
-    after:
-      'https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=400&h=400&fit=crop&crop=center',
-    title: 'Ортодонтическое лечение',
-    description: 'Исправление сложных аномалий',
-    patientAge: '24 года',
-    treatmentDuration: '24 месяца',
-  },
-  {
-    id: 9,
-    before:
-      'https://images.unsplash.com/photo-1606811941689-748b84e0ad99?w=400&h=400&fit=crop&crop=center',
-    after:
-      'https://images.unsplash.com/photo-1594824275771-b79160c0a3e8?w=400&h=400&fit=crop&crop=center',
-    title: 'Протезирование',
-    description: 'Съемные и несъемные протезы',
-    patientAge: '60 лет',
-    treatmentDuration: '10 недель',
-  },
-]
+export const detailedClientResults = [...clientResults]
