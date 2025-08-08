@@ -1,13 +1,11 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-import { useMediaQuery } from 'react-responsive'
 import { detailedRoutineImages } from '~/components/routine/utils/constants'
 import Layout from '~/components/layout/Layout'
 
 const RoutinePage = () => {
   const navigate = useNavigate()
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
   const handleGoBack = () => {
     navigate('/')
@@ -44,8 +42,8 @@ const RoutinePage = () => {
               Наша рутина
             </h1>
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
-              Детальный взгляд на ежедневную работу клиники Варданян. 
-              Каждый день мы следуем строгим протоколам для обеспечения наилучшего качества лечения.
+              Детальный взгляд на ежедневную работу клиники Варданян. Каждый день мы следуем строгим
+              протоколам для обеспечения наилучшего качества лечения.
             </p>
           </motion.header>
 
@@ -67,14 +65,12 @@ const RoutinePage = () => {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
-                
+
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-cyan-700 transition-colors duration-200">
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {item.description}
-                  </p>
+                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
                 </div>
 
                 {/* Hover overlay with title */}
