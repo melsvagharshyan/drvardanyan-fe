@@ -8,25 +8,22 @@ import { useMediaQuery } from 'react-responsive'
 
 const RoutinePage = () => {
   const navigate = useNavigate()
-  const isMobile = useMediaQuery({ maxWidth: 767 }) // mobile breakpoint
+  const isMobile = useMediaQuery({ maxWidth: 767 })
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
   const handleBack = () => {
-    if (window.history.state?.idx > 0) {
-      navigate(-1)
-    } else {
-      navigate('/')
-    }
+    if (window.history.state?.idx > 0) navigate(-1)
+    else navigate('/')
   }
 
   return (
     <Layout>
       <div className="min-h-screen pt-30 bg-gradient-to-br from-white via-cyan-50 to-cyan-100 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-screen-xl mx-auto">
-          {/* Header with back button */}
+          {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -42,7 +39,7 @@ const RoutinePage = () => {
             </button>
           </motion.div>
 
-          {/* Page Title */}
+          {/* Title */}
           <motion.header
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,7 +59,7 @@ const RoutinePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {detailedRoutineImages.map((item, index) => {
               if (!isMobile) {
-                // Web version: no animation
+                // Desktop: no animation
                 return (
                   <div
                     key={item.id}
@@ -86,14 +83,20 @@ const RoutinePage = () => {
                 )
               }
 
-              // Mobile version: animate when scrolled into view
+              // Mobile: smooth fade + slide from left or right when scrolled into view
               return (
                 <motion.div
                   key={item.id}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.6 }}
-                  viewport={{ once: true, amount: 0.3 }} // triggers when 30% of the card is visible
+                  initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                    transition: {
+                      duration: 1.2,
+                      ease: [0.25, 0.1, 0.25, 1],
+                    },
+                  }}
+                  viewport={{ once: true, amount: 0.3 }}
                   className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white"
                 >
                   <div className="relative overflow-hidden">
@@ -131,7 +134,7 @@ const RoutinePage = () => {
               </p>
               <button
                 onClick={handleBack}
-                className="relative cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
+                className="relative cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
               >
                 <span className="relative z-10">Связаться с нами</span>
                 <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
