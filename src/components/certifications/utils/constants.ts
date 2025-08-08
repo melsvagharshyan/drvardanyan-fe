@@ -17,11 +17,11 @@ export const certifications = [
   {
     id: 4,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754310275/vahan/Blue_Minimalist_Certificate_Of_Achievement_zjdgtv.png',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754657321/vahan/Blue_Minimalist_Certificate_Of_Achievement_q0bhte.png',
   },
   {
     id: 5,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754310926/vahan/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_sl65mz.png',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754657344/vahan/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_fypizn.png',
   },
 ]
