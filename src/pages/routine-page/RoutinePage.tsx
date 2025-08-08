@@ -1,14 +1,11 @@
-import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { detailedRoutineImages } from '~/components/routine/utils/constants'
 import Layout from '~/components/layout/Layout'
 import { useEffect } from 'react'
-import { useMediaQuery } from 'react-responsive'
 
 const RoutinePage = () => {
   const navigate = useNavigate()
-  const isMobile = useMediaQuery({ maxWidth: 767 })
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -23,29 +20,19 @@ const RoutinePage = () => {
     <Layout>
       <div className="min-h-screen pt-30 bg-gradient-to-br from-white via-cyan-50 to-cyan-100 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-screen-xl mx-auto">
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center mb-8"
-          >
+          {/* Header with back button */}
+          <div className="flex items-center mb-8">
             <button
               onClick={handleBack}
-              className="flex cursor-pointer items-center gap-2 text-cyan-600 hover:text-cyan-800 transition-colors duration-200 group"
+              className="flex cursor-pointer items-center gap-2 text-cyan-600 hover:text-cyan-800 transition-colors duration-200"
             >
-              <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-200" />
+              <ArrowLeft className="w-5 h-5" />
               <span className="font-medium">Назад</span>
             </button>
-          </motion.div>
+          </div>
 
-          {/* Title */}
-          <motion.header
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-12"
-          >
+          {/* Page Title */}
+          <header className="text-center mb-12">
             <h1 className="text-3xl sm:text-5xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text mb-4">
               Наша рутина
             </h1>
@@ -53,78 +40,35 @@ const RoutinePage = () => {
               Детальный взгляд на ежедневную работу клиники Варданян. Каждый день мы следуем строгим
               протоколам для обеспечения наилучшего качества лечения.
             </p>
-          </motion.header>
+          </header>
 
           {/* Images Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {detailedRoutineImages.map((item, index) => {
-              if (!isMobile) {
-                // Desktop: no animation
-                return (
-                  <div
-                    key={item.id}
-                    className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white"
-                  >
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-64 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-cyan-700 transition-colors duration-200">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
-                    </div>
-                  </div>
-                )
-              }
-
-              // Mobile: smooth fade + slide from left or right when scrolled into view
-              return (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-                  whileInView={{
-                    opacity: 1,
-                    x: 0,
-                    transition: {
-                      duration: 1.2,
-                      ease: [0.25, 0.1, 0.25, 1],
-                    },
-                  }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white"
-                >
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="w-full h-64 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-cyan-700 transition-colors duration-200">
-                      {item.title}
-                    </h3>
-                    <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
-                  </div>
-                </motion.div>
-              )
-            })}
+            {detailedRoutineImages.map((item) => (
+              <div
+                key={item.id}
+                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white"
+              >
+                <div className="relative overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-64 sm:h-72 object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-cyan-700 transition-colors duration-200">
+                    {item.title}
+                  </h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                </div>
+              </div>
+            ))}
           </div>
 
           {/* Call to Action */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-            className="text-center mt-16"
-          >
+          <div className="text-center mt-16">
             <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg max-w-2xl mx-auto">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">
                 Хотите стать частью нашей команды?
@@ -140,7 +84,7 @@ const RoutinePage = () => {
                 <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
               </button>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </Layout>
