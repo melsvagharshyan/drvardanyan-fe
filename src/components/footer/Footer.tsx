@@ -2,6 +2,7 @@ import React from 'react'
 import { FaInstagram, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 import { Link as ScrollLink } from 'react-scroll'
 import { Link, useLocation } from 'react-router-dom'
+
 import clsx from 'clsx'
 
 const Footer: React.FC = () => {
@@ -79,13 +80,20 @@ const Footer: React.FC = () => {
               <FaWhatsapp size={20} />
             </a>
           </div>
-          <button
-            type="submit"
-            className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer text-sm px-5 py-3 md:px-6 text-white font-semibold bg-gradient-to-r from-cyan-300 to-cyan-600 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 group"
+          <ScrollLink
+            to="consultation"
+            smooth={true}
+            duration={500}
+            className="cursor-pointer flex items-center gap-2"
           >
-            Записаться на приём
-            <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
-          </button>
+            <button
+              type="submit"
+              className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer text-sm px-5 py-3 md:px-6 text-white font-semibold bg-gradient-to-r from-cyan-300 to-cyan-600 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 group"
+            >
+              Записаться на приём
+              <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+            </button>
+          </ScrollLink>
         </div>
 
         <address className="not-italic flex flex-col items-start md:items-end order-2 md:order-none w-full md:w-auto">

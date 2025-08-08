@@ -2,6 +2,7 @@ import { easeInOut, motion } from 'framer-motion'
 import Navbar from '../navbar/Navbar'
 import { useMediaQuery } from 'react-responsive'
 import { useContactModal } from '~/contexts/ContactModalContext'
+import { Link as ScrollLink } from 'react-scroll'
 
 const textVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -31,13 +32,6 @@ const individualButtonVariants = {
 const Header = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
   const { openContactModal } = useContactModal()
-
-  const handleConsultation = () => {
-    const consultationSection = document.getElementById('consultation')
-    if (consultationSection) {
-      consultationSection.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
 
   const handleSocialMedia = () => {
     openContactModal()
@@ -94,28 +88,34 @@ const Header = () => {
           viewport={{ once: false, amount: 0.3 }}
           className={`flex gap-6 mt-8 ${isMobile ? 'flex-col items-center' : 'ml-4'}`}
         >
-          <motion.button
-            custom={0}
-            variants={individualButtonVariants}
-            whileHover="hover"
-            whileTap="tap"
-            onClick={handleConsultation}
-            className="group relative overflow-visible shadow-md hover:shadow-lg duration-300 ease-in-out flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-400 text-white py-4 px-8 rounded-full font-semibold transition-all"
+          <ScrollLink
+            to="consultation"
+            smooth={true}
+            duration={500}
+            className="cursor-pointer flex items-center gap-2"
           >
-            <span className="relative z-10 flex items-center gap-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                />
-              </svg>
-              Записать на визит
-            </span>
+            <motion.button
+              custom={0}
+              variants={individualButtonVariants}
+              whileHover="hover"
+              whileTap="tap"
+              className="group relative overflow-visible shadow-md hover:shadow-lg duration-300 ease-in-out flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-400 text-white py-4 px-8 rounded-full font-semibold transition-all"
+            >
+              <span className="relative z-10 flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+                Записать на визит
+              </span>
 
-            <span className="absolute inset-0 rounded-full border border-cyan-300 opacity-40 animate-softPing scale-110 translate-x-[-50%] translate-y-[-50%] left-1/2 top-1/2 w-full h-full"></span>
-          </motion.button>
+              <span className="absolute inset-0 rounded-full border border-cyan-300 opacity-40 animate-softPing scale-110 translate-x-[-50%] translate-y-[-50%] left-1/2 top-1/2 w-full h-full"></span>
+            </motion.button>
+          </ScrollLink>
 
           <motion.button
             custom={1}
