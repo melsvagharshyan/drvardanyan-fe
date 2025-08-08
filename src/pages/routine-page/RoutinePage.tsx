@@ -3,17 +3,26 @@ import { useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { detailedRoutineImages } from '~/components/routine/utils/constants'
 import Layout from '~/components/layout/Layout'
+import { useEffect } from 'react'
 
 const RoutinePage = () => {
   const navigate = useNavigate()
 
-  const handleGoBack = () => {
-    navigate('/')
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  const handleBack = () => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1)
+    } else {
+      navigate('/')
+    }
   }
 
   return (
     <Layout>
-      <div className="min-h-screen bg-gradient-to-br from-white via-cyan-50 to-cyan-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="min-h-screen pt-30 bg-gradient-to-br from-white via-cyan-50 to-cyan-100 py-8 px-4 sm:px-6 lg:px-8">
         <div className="max-w-screen-xl mx-auto">
           {/* Header with back button */}
           <motion.div
@@ -23,8 +32,8 @@ const RoutinePage = () => {
             className="flex items-center mb-8"
           >
             <button
-              onClick={handleGoBack}
-              className="flex items-center gap-2 text-cyan-600 hover:text-cyan-800 transition-colors duration-200 group"
+              onClick={handleBack}
+              className="flex cursor-pointer items-center gap-2 text-cyan-600 hover:text-cyan-800 transition-colors duration-200 group"
             >
               <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-200" />
               <span className="font-medium">Назад</span>
@@ -99,8 +108,8 @@ const RoutinePage = () => {
                 Присоединяйтесь к нам и станьте частью профессиональной команды клиники Варданян
               </p>
               <button
-                onClick={handleGoBack}
-                className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
+                onClick={handleBack}
+                className="relative cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
               >
                 <span className="relative z-10">Связаться с нами</span>
                 <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>

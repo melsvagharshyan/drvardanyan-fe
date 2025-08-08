@@ -35,23 +35,22 @@ export const detailedRoutineImages = [
   {
     id: 1,
     image:
-      'https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=800&h=600&fit=crop&crop=center',
-    title: 'Утренняя подготовка',
-    description: 'Стерилизация инструментов и подготовка рабочего места к приему пациентов',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.24_keseuy.jpg',
+    title: 'Первичная консультация',
+    description: 'Детальный осмотр  и планирование лечения',
   },
   {
     id: 2,
     image:
-      'https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&h=600&fit=crop&crop=center',
-    title: 'Первичная консультация',
-    description: 'Детальный осмотр полости рта и планирование лечения',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661286/vahan/2025-08-08_06.49.35_xoke3p.jpg',
+    title: 'Диагностика',
+    description: 'Использование современного диагностического оборудования',
   },
   {
     id: 3,
-    image:
-      'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&h=600&fit=crop&crop=center',
-    title: 'Диагностика',
-    description: 'Использование современного диагностического оборудования',
+    image: 'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754662108/vahan/ster_1_vv4vbk.webp',
+    title: 'Утренняя подготовка',
+    description: 'Стерилизация инструментов и подготовка рабочего места к приему пациентов',
   },
   {
     id: 4,
