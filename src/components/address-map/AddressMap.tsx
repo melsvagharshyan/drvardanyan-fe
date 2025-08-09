@@ -7,14 +7,17 @@ const YANDEX_MAPS_LINK = `https://yandex.ru/maps/?text=${encodeURIComponent(ADDR
 
 const AddressMap = () => {
   return (
-    <section className="w-full bg-gradient-to-r from-white to-cyan-200 py-10" aria-labelledby="address-title">
+    <section
+      className="w-full bg-gradient-to-r from-white to-cyan-200 py-10"
+      aria-labelledby="address-title"
+    >
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center mb-8">
           <h2
             id="address-title"
             className="text-2xl sm:text-3xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
           >
-            Наш адрес
+            Где мы находимся?
           </h2>
           <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
             Мы находимся по адресу, указанному ниже. Нажмите на карту или используйте ссылки, чтобы
@@ -65,5 +68,3 @@ const AddressMap = () => {
 }
 
 export default AddressMap
-
-
