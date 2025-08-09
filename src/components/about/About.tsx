@@ -13,9 +13,9 @@ const About = () => {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="w-full flex justify-center bg-gradient-to-r from-white to-cyan-200 py-20"
+      className="w-full flex justify-center bg-gradient-to-r from-white to-cyan-200 "
     >
-      <div className="flex flex-col md:flex-row items-center py-16 px-6 md:px-12 max-w-7xl w-full">
+      <div className="flex flex-col md:flex-row items-center pt-16  px-6 md:px-12 max-w-7xl w-full">
         {!isMobile ? (
           <motion.figure
             initial={{ opacity: 0, scale: 0.8 }}
