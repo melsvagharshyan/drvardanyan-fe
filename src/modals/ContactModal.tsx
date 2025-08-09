@@ -10,6 +10,7 @@ import {
   FaTelegramPlane,
   FaWhatsapp,
   FaShare,
+  FaTimes,
 } from 'react-icons/fa'
 import QRImage from '~/assets/images/Vahan.png'
 
@@ -70,8 +71,9 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
 
       if (navigator.share && (navigator as any).canShare?.({ files: [file] })) {
         await navigator.share({
-          title: 'QR-код визитки',
-          text: 'www.drvardanyan.life🦷',
+          title: 'Сайт стоматолога Вагана Варданяна',
+          text: 'Этот QR-код ведёт на сайт стоматолога Вагана Варданяна: www.drvardanyan.life',
+          url: 'https://www.drvardanyan.life',
           files: [file],
         })
         return
@@ -155,40 +157,50 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
   return ReactDOM.createPortal(
     isMobile ? (
       <div>
-        <div
-          className="fixed inset-0 bg-black/50 z-50 transition-opacity duration-300"
-          onClick={onClose}
-          aria-hidden="true"
-        />
-        <animated.div
-          {...bind()}
-          className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-lg z-50 touch-none"
-          style={{
-            transform: y.to((v: number) => `translateY(${v}px)`),
-            touchAction: 'none',
-            borderRadius: '20px 20px 0 0',
-            maxHeight: '80vh',
-            backgroundImage: `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
-            backgroundSize: 'cover',
-          }}
-          onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
-        >
-          <div className="relative p-6 ">
-            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-10 h-1 bg-gray-400 rounded-full " />
-            <div className="mt-4">
-              <ContactContent />
-            </div>
-          </div>
-        </animated.div>
-        {/* QR Share modal (mobile) */}
+        {!isShareModalOpen && (
+          <>
+            <div
+              className="fixed inset-0 bg-black/50 z-50 transition-opacity duration-300"
+              onClick={onClose}
+              aria-hidden="true"
+            />
+            <animated.div
+              {...bind()}
+              className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-lg z-50 touch-none"
+              style={{
+                transform: y.to((v: number) => `translateY(${v}px)`),
+                touchAction: 'none',
+                borderRadius: '20px 20px 0 0',
+                maxHeight: '80vh',
+                backgroundImage: `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
+                backgroundSize: 'cover',
+              }}
+              onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+            >
+              <div className="relative p-6 ">
+                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-10 h-1 bg-gray-400 rounded-full " />
+                <div className="mt-4">
+                  <ContactContent />
+                </div>
+              </div>
+            </animated.div>
+          </>
+        )}
         {/* Share modal with QR (mobile) */}
         {isShareModalOpen && (
           <div className="fixed inset-0 z-[60] flex items-end">
-            <div
-              className="absolute inset-0 bg-black/50"
-              onClick={() => setShareModalOpen(false)}
-            />
+            <div className="absolute inset-0 bg-black/50" onClick={() => setShareModalOpen(false)} />
             <div className="relative w-full bg-white rounded-t-2xl shadow-2xl p-6">
+              <button
+                aria-label="Закрыть"
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                onClick={() => {
+                  setShareModalOpen(false)
+                  onClose()
+                }}
+              >
+                <FaTimes className="w-5 h-5" />
+              </button>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Сканируйте QR-код сайта</h3>
               <p className="text-sm text-gray-500 mb-4">Или поделитесь QR-кодом ниже</p>
               <div className="w-full flex items-center justify-center">
@@ -209,28 +221,39 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
         )}
       </div>
     ) : (
-      <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3"
-        onClick={handleOverlayClick}
-      >
-        <div
-          ref={modalRef}
-          className="bg-white rounded-2xl shadow-2xl w-full max-w-xl p-8 animate-fade-in "
-          style={{
-            backgroundImage: `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
-            backgroundSize: 'cover',
-          }}
-        >
-          <ContactContent />
-        </div>
+      <div>
+        {!isShareModalOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-3"
+            onClick={handleOverlayClick}
+          >
+            <div
+              ref={modalRef}
+              className="bg-white rounded-2xl shadow-2xl w-full max-w-xl p-8 animate-fade-in "
+              style={{
+                backgroundImage: `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
+                backgroundSize: 'cover',
+              }}
+            >
+              <ContactContent />
+            </div>
+          </div>
+        )}
         {/* Share modal with QR (desktop) */}
         {isShareModalOpen && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center">
-            <div
-              className="absolute inset-0 bg-black/50"
-              onClick={() => setShareModalOpen(false)}
-            />
+            <div className="absolute inset-0 bg-black/50" onClick={() => setShareModalOpen(false)} />
             <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-[420px] max-w-[90vw]">
+              <button
+                aria-label="Закрыть"
+                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                onClick={() => {
+                  setShareModalOpen(false)
+                  onClose()
+                }}
+              >
+                <FaTimes className="w-5 h-5" />
+              </button>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">Сканируйте QR-код сайта</h3>
               <p className="text-sm text-gray-500 mb-4">Или поделитесь QR-кодом ниже</p>
               <div className="w-full flex items-center justify-center">
