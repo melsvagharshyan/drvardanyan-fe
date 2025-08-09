@@ -4,12 +4,10 @@ import { RouteObject } from 'react-router-dom'
 
 import Header from '~/components/header/Header'
 import About from '~/components/about/About'
-// import Projects from '~/components/projects/Projects'
 import Recommendations from '~/components/recommendations/Recommendations'
 import Education from '~/components/Education/Education'
 import Appointment from '~/components/consultation/Consultation'
 import Routine from '~/components/routine/Routine'
-import DentistBusinessCard from '~/components/visit-card/DentistBusinessCard'
 
 // Lazy load pages
 
@@ -34,10 +32,6 @@ export const appRoutes: RouteObject[] = [
       </>
     ),
   },
-  // {
-  //   path: '/project/:id',
-  //   element: <ProjectPage />,
-  // },
   {
     path: '/experience/:companyId',
     element: <ExperiencePage />,
@@ -49,10 +43,6 @@ export const appRoutes: RouteObject[] = [
   {
     path: '/client-results',
     element: <ClientResultsPage />,
-  },
-  {
-    path: '/visit-card',
-    element: <DentistBusinessCard />,
   },
   {
     path: '*',
