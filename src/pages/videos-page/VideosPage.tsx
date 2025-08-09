@@ -34,7 +34,7 @@ const VideosPage = () => {
           {/* Page Title */}
           <header className="text-center mb-12">
             <h1 className="text-3xl sm:text-5xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text mb-4">
-              Видео о нашей работе
+              Видеопортфолио нашей практики
             </h1>
             <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
               Короткие профессиональные ролики с примерами процедур и результатами.

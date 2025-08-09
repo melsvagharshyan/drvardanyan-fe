@@ -81,7 +81,7 @@ const Routine = () => {
       </div>
 
       {/* Client Results Section */}
-      <div className="mt-20 pt-16 border-t border-cyan-200">
+      <div className="mt-20 pt-16">
         <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
           <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
             Результаты наших пациентов

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Play } from 'lucide-react'
 import VideoModal from '~/modals/VideoModal'
 
@@ -17,9 +17,10 @@ interface VideoGalleryProps {
 
 const VideoGallery = ({ videos, heading, description }: VideoGalleryProps) => {
   const [openVideo, setOpenVideo] = useState<VideoItem | null>(null)
+  const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({})
 
   return (
-    <section className="mt-12">
+    <section>
       {(heading || description) && (
         <header className="text-center mb-8">
           {heading && (
@@ -35,12 +36,58 @@ const VideoGallery = ({ videos, heading, description }: VideoGalleryProps) => {
         {videos.map((v) => (
           <button
             key={v.id}
-            onClick={() => setOpenVideo(v)}
+            onClick={async () => {
+              const isMobile = window.matchMedia('(max-width: 768px)').matches
+              if (isMobile) {
+                const el = videoRefs.current[v.id] as any
+                try {
+                  if (el) {
+                    // Ensure audio is on when user explicitly clicks
+                    try {
+                      el.muted = false
+                      el.volume = 1
+                      el.currentTime = 0
+                      await el.play()
+                    } catch {}
+                    if (typeof el.webkitEnterFullscreen === 'function') {
+                      el.webkitEnterFullscreen()
+                      try {
+                        await el.play()
+                      } catch {}
+                      return
+                    }
+                    if (typeof el.requestFullscreen === 'function') {
+                      await el.requestFullscreen()
+                      try {
+                        await el.play()
+                      } catch {}
+                      return
+                    }
+                    if (
+                      typeof (document as any).webkitFullscreenElement !== 'undefined' &&
+                      typeof el.webkitRequestFullscreen === 'function'
+                    ) {
+                      el.webkitRequestFullscreen()
+                      try {
+                        await el.play()
+                      } catch {}
+                      return
+                    }
+                  }
+                } catch {
+                  // fallback to modal below
+                }
+              }
+              setOpenVideo(v)
+            }}
             className="group relative cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300"
           >
             {/* Always-on video preview */}
             <div className="relative h-60 w-full bg-black">
               <video
+                ref={(el: HTMLVideoElement | null) => {
+                  videoRefs.current[v.id] = el
+                }}
                 src={v.url}
                 muted
                 playsInline
@@ -58,11 +105,6 @@ const VideoGallery = ({ videos, heading, description }: VideoGalleryProps) => {
                 </span>
               </div>
             </div>
-
-            {/* Caption */}
-            <div className="bg-white px-4 py-3">
-              <p className="text-gray-800 font-medium truncate">{v.title}</p>
-            </div>
           </button>
         ))}
       </div>
@@ -78,5 +120,3 @@ const VideoGallery = ({ videos, heading, description }: VideoGalleryProps) => {
 }
 
 export default VideoGallery
-
-
