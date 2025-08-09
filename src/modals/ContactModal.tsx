@@ -1,4 +1,4 @@
-import React, { FC, useRef, useEffect } from 'react'
+import React, { FC, useRef, useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useMediaQuery } from 'react-responsive'
 import { useSpring, animated } from '@react-spring/web'
@@ -11,8 +11,7 @@ import {
   FaWhatsapp,
   FaShare,
 } from 'react-icons/fa'
-import { toBlob } from 'html-to-image'
-import { BusinessCardPanel } from '~/components/visit-card/DentistBusinessCard'
+import QRImage from '~/assets/images/Vahan.png'
 
 interface Props {
   isOpen: boolean
@@ -21,8 +20,8 @@ interface Props {
 
 export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null)
-  const cardRef = useRef<HTMLDivElement>(null)
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+  const [isShareModalOpen, setShareModalOpen] = useState(false)
 
   const [{ y }, api] = useSpring(() => ({ y: 0 }))
 
@@ -65,38 +64,27 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
 
   const handleShare = async () => {
     try {
-      if (!cardRef.current) return
-
-      // Render hidden card to image
-      const blob = await toBlob(cardRef.current, {
-        cacheBust: true,
-        pixelRatio: 2,
-        backgroundColor: '#f8fafc',
-      })
-
-      if (!blob) return
-
-      const file = new File([blob], 'dentist-business-card.png', { type: 'image/png' })
+      const response = await fetch(QRImage)
+      const blob = await response.blob()
+      const file = new File([blob], 'Vahan.png', { type: 'image/png' })
 
       if (navigator.share && (navigator as any).canShare?.({ files: [file] })) {
         await navigator.share({
-          title: 'Визитка стоматолога',
-          text: 'Контакты доктора Вагана Варданяна',
+          title: 'QR-код визитки',
+          text: 'Сканируйте или поделитесь QR-кодом',
           files: [file],
         })
         return
       }
 
-      // Fallback: download image
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.download = 'dentist-business-card.png'
+      link.download = 'Vahan.png'
       link.click()
       URL.revokeObjectURL(url)
     } catch (error) {
-      console.error('Error sharing:', error)
-      // Nothing else
+      console.error('Error sharing QR image:', error)
     }
   }
 
@@ -154,10 +142,10 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
       </ul>
       <button
         className="cursor-pointer mt-8 w-full bg-cyan-600 hover:bg-cyan-700 text-base md:text-lg py-3 text-white font-semibold bg-gradient-to-r from-cyan-200 to-cyan-500 rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
-        onClick={handleShare}
+        onClick={() => setShareModalOpen(true)}
       >
         <FaShare className="text-lg" />
-        Поделиться визиткой
+        Поделиться QR-кодом сайта
       </button>
     </div>
   )
@@ -192,10 +180,29 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
             </div>
           </div>
         </animated.div>
-        {/* Hidden business card for sharing */}
-        <div className="fixed -left-[99999px] top-0 opacity-0 pointer-events-none" aria-hidden="true">
-          <BusinessCardPanel ref={cardRef} />
-        </div>
+        {/* QR Share modal (mobile) */}
+        {/* Share modal with QR (mobile) */}
+        {isShareModalOpen && (
+          <div className="fixed inset-0 z-[60] flex items-end">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setShareModalOpen(false)} />
+            <div className="relative w-full bg-white rounded-t-2xl shadow-2xl p-6">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Сканируйте QR-код сайта</h3>
+              <p className="text-sm text-gray-500 mb-4">Или поделитесь QR-кодом ниже</p>
+              <div className="w-full flex items-center justify-center">
+                <img src={QRImage} alt="QR код визитки" className="w-56 h-56 object-contain" />
+              </div>
+              <button
+                onClick={async () => {
+                  await handleShare()
+                  setShareModalOpen(false)
+                }}
+                className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-lg transition"
+              >
+                Поделиться QR-кодом
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     ) : (
       <div
@@ -212,6 +219,28 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
         >
           <ContactContent />
         </div>
+        {/* Share modal with QR (desktop) */}
+        {isShareModalOpen && (
+          <div className="fixed inset-0 z-[60] flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/50" onClick={() => setShareModalOpen(false)} />
+            <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-[420px] max-w-[90vw]">
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">Сканируйте QR-код сайта</h3>
+              <p className="text-sm text-gray-500 mb-4">Или поделитесь QR-кодом ниже</p>
+              <div className="w-full flex items-center justify-center">
+                <img src={QRImage} alt="QR код визитки" className="w-56 h-56 object-contain" />
+              </div>
+              <button
+                onClick={async () => {
+                  await handleShare()
+                  setShareModalOpen(false)
+                }}
+                className="mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-3 rounded-xl shadow-md hover:shadow-lg transition"
+              >
+                Поделиться QR-кодом
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     ),
     document.body,
