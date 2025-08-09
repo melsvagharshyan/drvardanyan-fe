@@ -22,7 +22,7 @@ export const certifications = [
   {
     id: 5,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754657344/vahan/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_fypizn.png',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754726204/vahan/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_1_jd1dcw.png',
   },
 ]
 

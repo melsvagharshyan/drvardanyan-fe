@@ -1,4 +1,4 @@
-// Our Working Process images - you can replace these URLs with your actual clinic images
+// Our Working Process images
 export const routineImages = [
   {
     id: 1,
@@ -31,63 +31,23 @@ export const routineImages = [
 ]
 
 // Extended images for the detailed working process page
-export const detailedRoutineImages = [
-  {
-    id: 1,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.24_keseuy.jpg',
-    title: 'Первичная консультация',
-    description: 'Детальный осмотр  и планирование лечения',
-  },
-  {
-    id: 2,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661286/vahan/2025-08-08_06.49.35_xoke3p.jpg',
-    title: 'Диагностика',
-    description: 'Использование современного диагностического оборудования',
-  },
-  {
-    id: 3,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.13_n8zgny.jpg',
-    title: 'Лечебные процедуры',
-    description: 'Профессиональное лечение',
-  },
-  {
-    id: 4,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754665214/vahan/istockphoto-1284827806-612x612_jxyufk.jpg',
-    title: 'Завершение дня',
-    description: 'Обработка и стерилизация оборудования после приема',
-  },
-]
+export const detailedRoutineImages = [...routineImages]
 
-// Client Before/After Results
+// Client Before/After Results (без имплантации и ортодонтии)
 export const clientResults = [
   {
     id: 1,
     before:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754667969/vahan/2025-08-08_08.45.48_tjuevw.jpg',
-    after:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754667969/vahan/2025-08-08_08.45.37_oeyrnh.jpg',
-    title: 'Коррекция прикуса',
-    description: 'Результат 12-месячного лечения',
-    patientAge: '28 лет',
-    treatmentDuration: '12 месяцев',
-  },
-  {
-    id: 2,
-    before:
       'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754668373/vahan/2025-08-08_08.52.08_uuihxy.jpg',
     after:
       'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754668379/vahan/2025-08-08_08.52.12_uvjt1h.jpg',
-    title: 'Отбеливание зубов',
-    description: 'Профессиональное отбеливание ZOOM',
+    title: 'Протезирование',
+    description: 'Профессиональная установка мостовидного протеза',
     patientAge: '32 года',
     treatmentDuration: '1 процедура',
   },
   {
-    id: 3,
+    id: 2,
     before:
       'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754670811/vahan/2025-08-08_09.32.38_lr1muq.jpg',
     after:
@@ -98,18 +58,7 @@ export const clientResults = [
     treatmentDuration: '3 недели',
   },
   {
-    id: 4,
-    before:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754670917/vahan/2025-08-08_09.32.50_vaqjbl.jpg',
-    after:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754670925/vahan/2025-08-08_09.32.54_dfofsf.jpg',
-    title: 'Имплантация зубов',
-    description: 'Восстановление зубного ряда',
-    patientAge: '45 лет',
-    treatmentDuration: '6 месяцев',
-  },
-  {
-    id: 5,
+    id: 3,
     before:
       'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754670963/vahan/2025-08-08_09.32.58_lmtsqd.jpg',
     after:
@@ -118,6 +67,17 @@ export const clientResults = [
     description: 'Композитная реставрация',
     patientAge: '29 лет',
     treatmentDuration: '2 месяца',
+  },
+  {
+    id: 4,
+    before:
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754727131/vahan/2025-08-09_01.11.41_naozoz.jpg',
+    after:
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754727135/vahan/2025-08-09_01.11.32_cm0bsh.jpg',
+    title: 'Отбеливание зубов',
+    description: 'Композитная реставрация',
+    patientAge: '25 лет',
+    treatmentDuration: '1 процедура',
   },
 ]
 

@@ -49,7 +49,7 @@ const About = () => {
                 id="about-heading"
                 className="text-4xl font-bold mb-8 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
               >
-                Старший врач-стоматолог
+                Семейный врач-стоматолог общей практики
               </h2>
               <p className="text-gray-700 text-lg leading-relaxed max-w-3xl">
                 Опытный стоматолог с глубокими знаниями и практическими навыками в диагностике,
@@ -88,7 +88,7 @@ const About = () => {
                 id="about-heading"
                 className="text-2xl font-bold mb-6 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
               >
-                Старший врач-стоматолог
+                Семейный врач-стоматолог общей практики
               </h2>
               <p className="text-gray-700 text-base leading-relaxed max-w-3xl mx-auto font-light">
                 Опытный стоматолог с глубокими знаниями и практическими навыками в диагностике,
