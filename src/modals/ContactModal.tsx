@@ -71,9 +71,8 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
 
       if (navigator.share && (navigator as any).canShare?.({ files: [file] })) {
         await navigator.share({
-          title: 'Сайт стоматолога Вагана Варданяна',
+          title: 'QR-код визитки',
           text: 'Этот QR-код ведёт на сайт стоматолога Вагана Варданяна: www.drvardanyan.life',
-          url: 'https://www.drvardanyan.life',
           files: [file],
         })
         return
@@ -189,7 +188,10 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
         {/* Share modal with QR (mobile) */}
         {isShareModalOpen && (
           <div className="fixed inset-0 z-[60] flex items-end">
-            <div className="absolute inset-0 bg-black/50" onClick={() => setShareModalOpen(false)} />
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setShareModalOpen(false)}
+            />
             <div className="relative w-full bg-white rounded-t-2xl shadow-2xl p-6">
               <button
                 aria-label="Закрыть"
@@ -242,7 +244,10 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
         {/* Share modal with QR (desktop) */}
         {isShareModalOpen && (
           <div className="fixed inset-0 z-[60] flex items-center justify-center">
-            <div className="absolute inset-0 bg-black/50" onClick={() => setShareModalOpen(false)} />
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setShareModalOpen(false)}
+            />
             <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-[420px] max-w-[90vw]">
               <button
                 aria-label="Закрыть"
