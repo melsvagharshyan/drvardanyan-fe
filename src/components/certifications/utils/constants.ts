@@ -30,7 +30,7 @@ export const certificationsLarge = [
   {
     id: 1,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754660272/vahan/2025-08-08_06.36.51_kyk6dh.jpg',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754660267/vahan/2025-08-08_06.36.38_g2wjwk.jpg',
   },
   {
     id: 2,

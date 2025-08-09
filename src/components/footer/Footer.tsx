@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaInstagram, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
+import { FaInstagram, FaTelegramPlane, FaWhatsapp, FaPhone, FaEnvelope } from 'react-icons/fa'
 import { Link as ScrollLink } from 'react-scroll'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
@@ -149,17 +149,20 @@ const Footer: React.FC = () => {
 
         <address className="not-italic flex flex-col items-start md:items-end order-2 md:order-none w-full md:w-auto">
           <ul className="flex flex-col items-start md:items-end space-y-1 md:space-y-2 text-sm md:text-base">
-            <li>
+            <li className="flex items-center gap-2 text-silver">
+              <FaPhone className="text-cyan-400" />
               <a href="tel:+79101660102" className="hover:underline">
                 +7 (910) 166-01-02
               </a>
             </li>
-            <li>
+            <li className="flex items-center gap-2 text-silver">
+              <FaPhone className="text-cyan-400" />
               <a href="tel:+37433140102" className="hover:underline">
                 + (374) 33-140-102
               </a>
             </li>
-            <li>
+            <li className="flex items-center gap-2 text-silver">
+              <FaEnvelope className="text-cyan-400" />
               <a href="mailto:vahan.vardanyan.97@bk.ru" className="hover:underline">
                 vahan.vardanyan.97@bk.ru
               </a>

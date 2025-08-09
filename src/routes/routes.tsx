@@ -11,6 +11,8 @@ import Routine from '~/components/routine/Routine'
 import DentistBusinessCard from '~/components/visit-card/DentistBusinessCard'
 import VideoGallery from '~/components/video-gallery/VideoGallery'
 import { Link } from 'react-router-dom'
+import Licenses from '~/components/certifications/Licenses'
+import AddressMap from '~/components/address-map/AddressMap'
 
 // Lazy load pages
 
@@ -29,6 +31,7 @@ export const appRoutes: RouteObject[] = [
         <Header />
         <About />
         <Education />
+        <Licenses />
         <section className="w-full bg-gradient-to-r from-white to-cyan-200 py-8">
           <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
             <VideoGallery
@@ -65,6 +68,7 @@ export const appRoutes: RouteObject[] = [
         <Routine />
         <Recommendations />
         <Appointment />
+        <AddressMap />
       </>
     ),
   },
