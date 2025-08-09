@@ -3,30 +3,30 @@ export const routineImages = [
   {
     id: 1,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.13_n8zgny.jpg',
-    title: 'Утренняя подготовка',
-    description: 'Подготовка рабочего места',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.24_keseuy.jpg',
+    title: 'Первичная консультация',
+    description: 'Детальный осмотр  и планирование лечения',
   },
   {
     id: 2,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.24_keseuy.jpg',
-    title: 'Консультация пациента',
-    description: 'Детальный осмотр и консультация',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661286/vahan/2025-08-08_06.49.35_xoke3p.jpg',
+    title: 'Диагностика',
+    description: 'Использование современного диагностического оборудования',
   },
   {
     id: 3,
     image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661287/vahan/2025-08-08_06.49.57_azze6v.jpg',
-    title: 'Современное оборудование',
-    description: 'Использование передовых технологий',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.13_n8zgny.jpg',
+    title: 'Лечебные процедуры',
+    description: 'Профессиональное лечение',
   },
   {
     id: 4,
     image:
-      'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop&crop=center',
-    title: 'Лечебные процедуры',
-    description: 'Профессиональное лечение',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754665214/vahan/istockphoto-1284827806-612x612_jxyufk.jpg',
+    title: 'Завершение дня',
+    description: 'Обработка и стерилизация оборудования после приема',
   },
 ]
 
@@ -49,9 +49,9 @@ export const detailedRoutineImages = [
   {
     id: 3,
     image:
-      'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&h=600&fit=crop&crop=center',
+      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661285/vahan/2025-08-08_06.49.13_n8zgny.jpg',
     title: 'Лечебные процедуры',
-    description: 'Выполнение терапевтических и хирургических процедур',
+    description: 'Профессиональное лечение',
   },
   {
     id: 4,

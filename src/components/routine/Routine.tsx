@@ -22,53 +22,44 @@ const Routine = () => {
       autoplaySpeed: 3000,
       arrows: false,
       responsive: [
-        {
-          breakpoint: 768,
-          settings: { slidesToShow: 1 },
-        },
-        {
-          breakpoint: 1024,
-          settings: { slidesToShow: 2 },
-        },
+        { breakpoint: 768, settings: { slidesToShow: 1 } },
+        { breakpoint: 1024, settings: { slidesToShow: 2 } },
       ],
     }),
     [isMobile, isTablet],
   )
 
-  const handleShowMore = () => {
-    navigate('/routine')
-  }
-
-  const handleShowMoreResults = () => {
-    navigate('/client-results')
-  }
+  const handleShowMore = () => navigate('/routine')
+  const handleShowMoreResults = () => navigate('/client-results')
 
   return (
     <section
       id="routine"
       className="w-full bg-gradient-to-r from-white to-cyan-200 py-16 px-4 sm:px-6 lg:px-8"
     >
+      {/* Routine Header */}
       <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
         <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
-          Наш рабочий процесс
+          Наша рутина
         </h2>
         <p className="text-gray-600 text-base sm:text-lg mt-4 max-w-2xl mx-auto">
-          Познакомьтесь с профессиональными стандартами и методиками современной стоматологии
+          Заглянем за кулисы работы клиники Варданян
         </p>
       </header>
 
+      {/* Routine Slider */}
       <div className="max-w-screen-xl mx-auto">
         <Slider {...sliderSettings}>
           {routineImages.map((item) => (
             <div key={item.id} className="px-2">
-              <div className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+              <div className="relative overflow-hidden rounded-xl shadow-lg transition-all duration-300">
                 <img
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-56 sm:h-64 md:h-72 object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="w-full h-56 sm:h-64 md:h-72 object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-4 left-4 right-4 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 opacity-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4 text-white">
                   <h3 className="text-lg font-semibold mb-1">{item.title}</h3>
                   <p className="text-sm text-gray-200">{item.description}</p>
                 </div>
@@ -78,6 +69,7 @@ const Routine = () => {
         </Slider>
       </div>
 
+      {/* Show More Button */}
       <div className="mt-10 sm:mt-16 flex justify-center">
         <button
           onClick={handleShowMore}
@@ -99,40 +91,38 @@ const Routine = () => {
           </p>
         </header>
 
+        {/* Client Results Slider */}
         <div className="max-w-screen-xl mx-auto">
           <Slider {...sliderSettings}>
             {clientResults.map((item) => (
               <div key={item.id} className="px-2">
-                <div className="relative group overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white">
-                  {/* Before/After Images Container */}
+                <div className="relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 bg-white">
+                  {/* Before/After Images */}
                   <div className="relative h-80 sm:h-96 md:h-[28rem]">
-                    {/* Before Image */}
                     <div className="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
                       <img
                         src={item.before}
                         alt={`До лечения - ${item.title}`}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-cover"
                       />
                       <div className="absolute top-2 left-2 bg-black/40 text-white px-2 py-1 rounded text-xs font-semibold">
                         ДО
                       </div>
                     </div>
-                    {/* After Image */}
                     <div className="absolute bottom-0 left-0 w-full h-1/2 overflow-hidden">
                       <img
                         src={item.after}
                         alt={`После лечения - ${item.title}`}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-cover"
                       />
                       <div className="absolute top-2 left-2 bg-black/40 text-white px-2 py-1 rounded text-xs font-semibold">
                         ПОСЛЕ
                       </div>
                     </div>
-                    {/* Divider Line */}
                     <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white transform -translate-y-1/2 z-10"></div>
                   </div>
 
-                  {/* Content */}
+                  {/* Always Visible Text */}
                   <div className="p-4">
                     <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
                     <p className="text-gray-600 text-sm mb-2">{item.description}</p>
@@ -147,6 +137,7 @@ const Routine = () => {
           </Slider>
         </div>
 
+        {/* View All Results Button */}
         <div className="mt-10 sm:mt-16 flex justify-center">
           <button
             onClick={handleShowMoreResults}
