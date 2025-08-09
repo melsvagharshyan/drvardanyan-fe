@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import { FaMapMarkerAlt, FaExternalLinkAlt } from 'react-icons/fa'
 
 const ADDRESS_TEXT = 'Тульская область, город Новомосковск, Трудовые резервы 25, Вита Дент'
@@ -6,6 +7,37 @@ const GOOGLE_MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${enco
 const YANDEX_MAPS_LINK = `https://yandex.ru/maps/?text=${encodeURIComponent(ADDRESS_TEXT)}`
 
 const AddressMap = () => {
+  const [shouldLoadIframe, setShouldLoadIframe] = useState(false)
+  const [isIframeLoaded, setIsIframeLoaded] = useState(false)
+  const mapContainerRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (shouldLoadIframe) return
+    if (!mapContainerRef.current) return
+    if (typeof window === 'undefined' || typeof IntersectionObserver === 'undefined') {
+      setShouldLoadIframe(true)
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setShouldLoadIframe(true)
+          }
+        })
+      },
+      {
+        root: null,
+        rootMargin: '400px 0px',
+        threshold: 0.01,
+      },
+    )
+
+    observer.observe(mapContainerRef.current)
+    return () => observer.disconnect()
+  }, [shouldLoadIframe])
+
   return (
     <section
       className="w-full bg-gradient-to-r from-white to-cyan-200 py-10"
@@ -26,14 +58,38 @@ const AddressMap = () => {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-          <div className="lg:col-span-2 overflow-hidden rounded-2xl shadow-xl border border-cyan-100">
-            <iframe
-              title="Адрес на карте"
-              src={GOOGLE_MAPS_EMBED}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full h-[360px] sm:h-[420px] lg:h-[460px]"
-            />
+          <div
+            ref={mapContainerRef}
+            className="relative lg:col-span-2 overflow-hidden rounded-2xl shadow-xl border border-cyan-100"
+          >
+            {!isIframeLoaded && (
+              <button
+                type="button"
+                onClick={() => setShouldLoadIframe(true)}
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-white to-cyan-50"
+                aria-label="Загрузить интерактивную карту"
+              >
+                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-cyan-300">
+                  <FaMapMarkerAlt className="text-cyan-600" size={22} />
+                </div>
+                <div className="text-gray-700 font-medium">Показать карту</div>
+                <div className="text-xs text-gray-500">Нажмите, чтобы загрузить интерактивную карту</div>
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="w-full h-full animate-pulse bg-gradient-to-b from-gray-100/70 to-gray-200/70" />
+                </div>
+              </button>
+            )}
+
+            {shouldLoadIframe && (
+              <iframe
+                title="Адрес на карте"
+                src={GOOGLE_MAPS_EMBED}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="relative z-0 w-full h-[360px] sm:h-[420px] lg:h-[460px]"
+                onLoad={() => setIsIframeLoaded(true)}
+              />
+            )}
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl p-5 border border-cyan-100 flex flex-col justify-between">
