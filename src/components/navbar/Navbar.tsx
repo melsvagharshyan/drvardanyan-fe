@@ -120,7 +120,7 @@ const Navbar = () => {
       About: 'ОБО МНЕ',
       Experience: 'ОПЫТ',
       Projects: 'ПРОЕКТЫ',
-      Consultation: 'КОНСУЛЬТАЦИЯ',
+      Consultation: 'ЗАПИСЬ',
       Contact: 'КОНТАКТЫ',
     }
     return navTexts[title] || title.toUpperCase()

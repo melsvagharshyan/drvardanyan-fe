@@ -1,13 +1,12 @@
-import React from 'react'
-import { useForm, FormProvider, Controller } from 'react-hook-form'
+import React, { useEffect, useMemo } from 'react'
+import { useForm, FormProvider, Controller, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { FiCalendar } from 'react-icons/fi'
 import { useMediaQuery } from 'react-responsive'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-import { useSubmitConsultationMutation } from '~/app/messages/messages.api'
+import { useGetAvailabilityQuery, useSubmitConsultationMutation } from '~/app/messages/messages.api'
 import { formSchema, TFormValues } from './utils/validation'
 
 const Consultation: React.FC = () => {
@@ -16,19 +15,140 @@ const Consultation: React.FC = () => {
     defaultValues: {
       name: '',
       phoneNumber: '',
-      convenientTime: '',
+      service: 'consultation',
+      date: '',
+      time: '',
     },
     mode: 'onSubmit',
   })
 
-  const { handleSubmit, control, reset } = methods
+  const { handleSubmit, control, reset, setValue } = methods
   const [submitConsultation, { isLoading }] = useSubmitConsultationMutation()
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
+  // Local "today" string matching the user's timezone (not UTC)
+  const todayStr = useMemo(() => {
+    const now = new Date()
+    const y = now.getFullYear()
+    const m = String(now.getMonth() + 1).padStart(2, '0')
+    const d = String(now.getDate()).padStart(2, '0')
+    return `${y}-${m}-${d}`
+  }, [])
+
+  const selectedService = useWatch({ control, name: 'service' })
+  const selectedDate = useWatch({ control, name: 'date' })
+
+  // Get availability for selected date and service
+  const {
+    data: availability,
+    isLoading: isLoadingAvailability,
+    error: availabilityError,
+    refetch,
+  } = useGetAvailabilityQuery(
+    { date: selectedDate, service: selectedService },
+    { skip: !selectedDate || !selectedService },
+  )
+
+  // Debug logging
+  console.log('Selected date:', selectedDate)
+  console.log('Selected service:', selectedService)
+  console.log('Skip condition:', !selectedDate || !selectedService)
+  console.log('Availability data:', availability)
+  console.log('Loading:', isLoadingAvailability)
+  console.log('Error:', availabilityError)
+  console.log(
+    'Error details:',
+    availabilityError
+      ? {
+          error: availabilityError,
+          type: 'error' in availabilityError ? 'FetchBaseQueryError' : 'SerializedError',
+        }
+      : 'No error',
+  )
+
+  // Generate time options based on availability from backend
+  const timeOptions = useMemo(() => {
+    if (!availability || !selectedDate) {
+      return []
+    }
+
+    const { availableSlots = [] } = availability
+
+    // Convert ISO strings to time options
+    const slots = availableSlots
+      .filter((iso) => {
+        // Filter by local date of the slot
+        const slotLocal = new Date(iso)
+        const y = slotLocal.getFullYear()
+        const m = String(slotLocal.getMonth() + 1).padStart(2, '0')
+        const d = String(slotLocal.getDate()).padStart(2, '0')
+        const slotDateStr = `${y}-${m}-${d}`
+        return slotDateStr === selectedDate
+      })
+      .map((iso) => {
+        const slotLocal = new Date(iso)
+        const label = slotLocal.toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        })
+
+        // Check if time is in the past for today
+        const isToday = selectedDate === todayStr
+        const nowLocal = new Date()
+        const isPast = isToday && slotLocal.getTime() <= nowLocal.getTime()
+
+        return {
+          label,
+          value: label,
+          disabled: isPast,
+          time: slotLocal,
+          iso: iso,
+        }
+      })
+      .filter((slot) => !slot.disabled) // Remove past times
+      .sort((a, b) => a.time.getTime() - b.time.getTime())
+
+    return slots
+  }, [availability, selectedDate, todayStr])
+
+  useEffect(() => {
+    // Reset time when date or service changes
+    if (selectedDate || selectedService) {
+      setValue('time', '')
+    }
+  }, [selectedDate, selectedService, setValue])
 
   const onSubmit = async (data: TFormValues) => {
     try {
-      await submitConsultation(data).unwrap()
-      reset()
+      // Find the selected time slot to get the ISO time
+      const selectedTimeSlot = timeOptions.find((opt) => opt.value === data.time)
+      if (!selectedTimeSlot) {
+        toast.error('Пожалуйста, выберите доступное время', {
+          position: 'top-center',
+          autoClose: 1500,
+          theme: 'colored',
+        })
+        return
+      }
+
+      await submitConsultation({
+        name: data.name,
+        phoneNumber: data.phoneNumber,
+        service: data.service,
+        start: selectedTimeSlot.iso,
+        // pass client's tz offset for precise server validation
+        tzOffset: Number(new Date().getTimezoneOffset()),
+      }).unwrap()
+      // Refresh availability immediately so the just-booked slot disappears
+      await refetch()
+      // Reset only user-entered fields, keep selected service/date
+      reset({
+        name: '',
+        phoneNumber: '',
+        service: selectedService,
+        date: selectedDate,
+        time: '',
+      })
       toast.success('Заявка успешно отправлена!', {
         position: 'top-center',
         autoClose: 1500,
@@ -66,7 +186,7 @@ const Consultation: React.FC = () => {
                 isMobile ? 'text-2xl' : 'text-4xl'
               } font-bold mb-6 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text`}
             >
-              Запись на консультацию
+              Запись
             </h2>
           </div>
 
@@ -108,26 +228,105 @@ const Consultation: React.FC = () => {
             )}
           />
 
-          {/* Convenient Time (Date Picker) */}
+          {/* Service */}
           <Controller
-            name="convenientTime"
+            name="service"
             control={control}
             render={({ field, fieldState }) => (
-              <div className="relative cursor-pointer">
-                <label className="block text-left text-gray-600 text-sm mb-2">
-                  Удобное время для звонка стоматолога
-                </label>
+              <div>
+                <label className="block text-left text-gray-600 text-sm mb-2">Услуга</label>
+                <select
+                  {...field}
+                  className="w-full text-sm md:text-base text-gray-500 pl-5 pr-8 py-3 md:pl-6 md:pr-8 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm"
+                >
+                  <option value="consultation">Консультация (бесплатно)</option>
+                  <option value="treatment">Лечение</option>
+                  <option value="extraction">Удаление</option>
+                  <option value="prosthetics">Протезирование</option>
+                </select>
+                {fieldState.error && (
+                  <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                )}
+              </div>
+            )}
+          />
+
+          {/* Date */}
+          <Controller
+            name="date"
+            control={control}
+            render={({ field, fieldState }) => (
+              <div className="relative">
+                <label className="block text-left text-gray-600 text-sm mb-2">Дата</label>
                 <input
                   {...field}
-                  type="datetime-local"
-                  className="cursor-pointer w-full appearance-none text-sm md:text-base text-gray-500 px-5 py-3 md:px-6 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm placeholder-gray-400 pr-12"
-                  placeholder="Выберите дату и время"
+                  type="date"
+                  min={todayStr}
+                  className="cursor-pointer w-full appearance-none text-sm md:text-base text-gray-500 px-5 py-3 md:px-6 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm placeholder-gray-400"
+                  placeholder="Выберите дату"
                 />
-                {isMobile && (
-                  <FiCalendar className="absolute right-4 top-[68%] -translate-y-1/2 text-gray-500 pointer-events-none" />
-                )}
                 {fieldState.error && (
                   <p className="text-red-500 text-sm mt-1">{fieldState.error.message}</p>
+                )}
+              </div>
+            )}
+          />
+
+          {/* Time */}
+          <Controller
+            name="time"
+            control={control}
+            render={({ field, fieldState }) => (
+              <div>
+                <label className="block text-left text-gray-600 text-sm mb-2">
+                  Время {isLoadingAvailability && selectedDate && '(загрузка...)'}
+                  {availabilityError && selectedDate && ' (используются базовые часы работы)'}
+                </label>
+                <select
+                  {...field}
+                  disabled={!selectedDate || isLoadingAvailability}
+                  className="w-full text-sm md:text-base text-gray-500 pl-5 pr-8 py-3 md:pl-6 md:pr-8 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm disabled:opacity-50"
+                >
+                  <option value="" disabled>
+                    {!selectedDate
+                      ? 'Сначала выберите дату'
+                      : isLoadingAvailability
+                        ? 'Загрузка доступного времени...'
+                        : timeOptions.length === 0
+                          ? 'Нет доступного времени на эту дату'
+                          : 'Выберите время'}
+                  </option>
+                  {timeOptions.map(
+                    (opt: {
+                      label: string
+                      value: string
+                      disabled: boolean
+                      time: Date
+                      iso: string
+                    }) => (
+                      <option
+                        key={opt.label}
+                        value={opt.value}
+                        disabled={opt.disabled}
+                        className={opt.disabled ? 'text-gray-400' : ''}
+                      >
+                        {opt.label} {opt.disabled ? '(недоступно)' : ''}
+                      </option>
+                    ),
+                  )}
+                </select>
+                {availabilityError && (
+                  <p className="text-red-500 text-sm mt-1">
+                    Ошибка загрузки доступного времени. Попробуйте выбрать другую дату.
+                    {import.meta.env.DEV && (
+                      <span className="block text-xs mt-1">
+                        Детали: {JSON.stringify(availabilityError)}
+                      </span>
+                    )}
+                  </p>
+                )}
+                {fieldState.error && (
+                  <p className="text-red-500 text-sm">{fieldState.error.message}</p>
                 )}
               </div>
             )}
