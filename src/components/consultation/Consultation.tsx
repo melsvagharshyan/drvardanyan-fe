@@ -41,7 +41,6 @@ const Consultation: React.FC = () => {
   const {
     data: availability,
     isLoading: isLoadingAvailability,
-    error: availabilityError,
     refetch,
   } = useGetAvailabilityQuery(
     { date: selectedDate, service: selectedService },
