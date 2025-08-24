@@ -204,8 +204,6 @@ const Consultation: React.FC = () => {
               </div>
             )}
           />
-
-          {/* Date */}
           {/* Date */}
           <Controller
             name="date"
@@ -225,7 +223,7 @@ const Consultation: React.FC = () => {
           [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full"
                   />
                   {/* Our custom calendar icon (shows consistently) */}
-                  <AiOutlineCalendar className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" />
+                  {/* <AiOutlineCalendar className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" /> */}
                 </div>
                 {fieldState.error && (
                   <p className="text-red-500 text-sm mt-2 text-left">{fieldState.error.message}</p>
