@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from 'react'
 import { useForm, FormProvider, Controller, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import { ChevronDownIcon } from 'lucide-react'
 import { useMediaQuery } from 'react-responsive'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -178,7 +179,7 @@ const Consultation: React.FC = () => {
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="p-6 md:p-10 bg-white/80 text-center rounded-2xl max-w-2xl flex flex-col gap-6 mx-auto"
+          className="p-6 md:p-10 bg-white/80 backdrop-blur-sm text-center rounded-2xl max-w-2xl flex flex-col gap-6 mx-auto"
         >
           <div className="flex justify-center items-center gap-2 md:gap-3">
             <h2
@@ -200,10 +201,10 @@ const Consultation: React.FC = () => {
                   {...field}
                   type="text"
                   placeholder="Ваше имя"
-                  className="w-full text-sm md:text-base text-gray-500 px-5 py-3 md:px-6 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm placeholder-gray-500"
+                  className="w-full text-sm md:text-base text-gray-700 px-5 py-3 md:px-6 md:py-4 bg-white/80 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm placeholder-gray-400 transition-all duration-200 hover:border-cyan-300 hover:shadow-md"
                 />
                 {fieldState.error && (
-                  <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                  <p className="text-red-500 text-sm mt-2 text-left">{fieldState.error.message}</p>
                 )}
               </div>
             )}
@@ -219,10 +220,10 @@ const Consultation: React.FC = () => {
                   {...field}
                   type="tel"
                   placeholder="Номер телефона"
-                  className="w-full text-sm md:text-base text-gray-500 px-5 py-3 md:px-6 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm placeholder-gray-500"
+                  className="w-full text-sm md:text-base text-gray-700 px-5 py-3 md:px-6 md:py-4 bg-white/80 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm placeholder-gray-400 transition-all duration-200 hover:border-cyan-300 hover:shadow-md"
                 />
                 {fieldState.error && (
-                  <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                  <p className="text-red-500 text-sm mt-2 text-left">{fieldState.error.message}</p>
                 )}
               </div>
             )}
@@ -234,18 +235,31 @@ const Consultation: React.FC = () => {
             control={control}
             render={({ field, fieldState }) => (
               <div>
-                <label className="block text-left text-gray-600 text-sm mb-2">Услуга</label>
-                <select
-                  {...field}
-                  className="w-full text-sm md:text-base text-gray-500 pl-5 pr-8 py-3 md:pl-6 md:pr-8 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm"
-                >
-                  <option value="consultation">Консультация (бесплатно)</option>
-                  <option value="treatment">Лечение</option>
-                  <option value="extraction">Удаление</option>
-                  <option value="prosthetics">Протезирование</option>
-                </select>
+                <label className="block text-left text-gray-700 text-sm font-semibold mb-3">
+                  Услуга
+                </label>
+                <div className="relative">
+                  <select
+                    {...field}
+                    className="w-full text-sm md:text-base text-gray-700 pl-5 pr-12 py-3 md:pl-6 md:pr-12 md:py-4 bg-white/80 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm cursor-pointer appearance-none transition-all duration-200 hover:border-cyan-300 hover:shadow-md"
+                  >
+                    <option value="consultation" className="py-2">
+                      Консультация (бесплатно)
+                    </option>
+                    <option value="treatment" className="py-2">
+                      Лечение
+                    </option>
+                    <option value="extraction" className="py-2">
+                      Удаление
+                    </option>
+                    <option value="prosthetics" className="py-2">
+                      Протезирование
+                    </option>
+                  </select>
+                  <ChevronDownIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500 pointer-events-none" />
+                </div>
                 {fieldState.error && (
-                  <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                  <p className="text-red-500 text-sm mt-2 text-left">{fieldState.error.message}</p>
                 )}
               </div>
             )}
@@ -256,17 +270,18 @@ const Consultation: React.FC = () => {
             name="date"
             control={control}
             render={({ field, fieldState }) => (
-              <div className="relative">
-                <label className="block text-left text-gray-600 text-sm mb-2">Дата</label>
+              <div>
+                <label className="block text-left text-gray-700 text-sm font-semibold mb-3">
+                  Дата
+                </label>
                 <input
                   {...field}
                   type="date"
                   min={todayStr}
-                  className="cursor-pointer w-full appearance-none text-sm md:text-base text-gray-500 px-5 py-3 md:px-6 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm placeholder-gray-400"
-                  placeholder="Выберите дату"
+                  className="w-full text-sm md:text-base text-gray-700 px-5 py-3 md:px-6 md:py-4 bg-white/80 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm cursor-pointer transition-all duration-200 hover:border-cyan-300 hover:shadow-md"
                 />
                 {fieldState.error && (
-                  <p className="text-red-500 text-sm mt-1">{fieldState.error.message}</p>
+                  <p className="text-red-500 text-sm mt-2 text-left">{fieldState.error.message}</p>
                 )}
               </div>
             )}
@@ -278,55 +293,75 @@ const Consultation: React.FC = () => {
             control={control}
             render={({ field, fieldState }) => (
               <div>
-                <label className="block text-left text-gray-600 text-sm mb-2">
-                  Время {isLoadingAvailability && selectedDate && '(загрузка...)'}
-                  {availabilityError && selectedDate && ' (используются базовые часы работы)'}
-                </label>
-                <select
-                  {...field}
-                  disabled={!selectedDate || isLoadingAvailability}
-                  className="w-full text-sm md:text-base text-gray-500 pl-5 pr-8 py-3 md:pl-6 md:pr-8 md:py-4 bg-white/60 border border-gray-300 rounded-lg outline-none focus:ring-1 focus:ring-cyan-400 shadow-sm disabled:opacity-50"
-                >
-                  <option value="" disabled>
-                    {!selectedDate
-                      ? 'Сначала выберите дату'
-                      : isLoadingAvailability
-                        ? 'Загрузка доступного времени...'
-                        : timeOptions.length === 0
-                          ? 'Нет доступного времени на эту дату'
-                          : 'Выберите время'}
-                  </option>
-                  {timeOptions.map(
-                    (opt: {
-                      label: string
-                      value: string
-                      disabled: boolean
-                      time: Date
-                      iso: string
-                    }) => (
-                      <option
-                        key={opt.label}
-                        value={opt.value}
-                        disabled={opt.disabled}
-                        className={opt.disabled ? 'text-gray-400' : ''}
-                      >
-                        {opt.label} {opt.disabled ? '(недоступно)' : ''}
-                      </option>
-                    ),
+                <label className="block text-left text-gray-700 text-sm font-semibold mb-3">
+                  Время
+                  {isLoadingAvailability && selectedDate && (
+                    <span className="text-cyan-600 ml-2 font-normal">(загрузка...)</span>
                   )}
-                </select>
-                {availabilityError && (
-                  <p className="text-red-500 text-sm mt-1">
-                    Ошибка загрузки доступного времени. Попробуйте выбрать другую дату.
-                    {import.meta.env.DEV && (
-                      <span className="block text-xs mt-1">
-                        Детали: {JSON.stringify(availabilityError)}
-                      </span>
+                  {availabilityError && selectedDate && (
+                    <span className="text-orange-600 ml-2 font-normal">(базовые часы работы)</span>
+                  )}
+                </label>
+                <div className="relative">
+                  <select
+                    {...field}
+                    disabled={!selectedDate || isLoadingAvailability}
+                    className="w-full text-sm md:text-base text-gray-700 pl-5 pr-12 py-3 md:pl-6 md:pr-12 md:py-4 bg-white/80 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-cyan-400 focus:border-cyan-400 shadow-sm cursor-pointer appearance-none disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-100 transition-all duration-200 hover:border-cyan-300 hover:shadow-md"
+                  >
+                    <option value="" disabled className="text-gray-400">
+                      {!selectedDate
+                        ? 'Сначала выберите дату'
+                        : isLoadingAvailability
+                          ? 'Загрузка доступного времени...'
+                          : timeOptions.length === 0
+                            ? 'Нет доступного времени на эту дату'
+                            : 'Выберите время'}
+                    </option>
+                    {timeOptions.map(
+                      (opt: {
+                        label: string
+                        value: string
+                        disabled: boolean
+                        time: Date
+                        iso: string
+                      }) => (
+                        <option
+                          key={opt.label}
+                          value={opt.value}
+                          disabled={opt.disabled}
+                          className="py-2"
+                        >
+                          {opt.label} {opt.disabled ? '(недоступно)' : ''}
+                        </option>
+                      ),
                     )}
-                  </p>
+                  </select>
+                  {isLoadingAvailability ? (
+                    <AiOutlineLoading3Quarters className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-cyan-500 animate-spin pointer-events-none" />
+                  ) : (
+                    <ChevronDownIcon className="absolute right-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500 pointer-events-none" />
+                  )}
+                </div>
+                {availabilityError && (
+                  <div className="mt-2">
+                    <p className="text-orange-600 text-sm text-left flex items-center gap-1">
+                      <span>⚠️</span>
+                      Ошибка загрузки доступного времени. Попробуйте выбрать другую дату.
+                    </p>
+                    {import.meta.env.DEV && (
+                      <details className="mt-2">
+                        <summary className="text-xs text-gray-500 cursor-pointer hover:text-gray-700">
+                          Детали ошибки (dev mode)
+                        </summary>
+                        <pre className="text-xs text-gray-500 mt-1 p-2 bg-gray-100 rounded overflow-auto max-h-32">
+                          {JSON.stringify(availabilityError, null, 2)}
+                        </pre>
+                      </details>
+                    )}
+                  </div>
                 )}
                 {fieldState.error && (
-                  <p className="text-red-500 text-sm">{fieldState.error.message}</p>
+                  <p className="text-red-500 text-sm mt-2 text-left">{fieldState.error.message}</p>
                 )}
               </div>
             )}
@@ -336,16 +371,19 @@ const Consultation: React.FC = () => {
           <button
             type="submit"
             disabled={isLoading}
-            className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer text-sm md:text-lg px-5 py-3 md:px-6 md:py-4 text-white font-semibold bg-gradient-to-r from-cyan-200 to-cyan-500 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 group"
+            className="relative overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer text-sm md:text-lg px-5 py-3 md:px-6 md:py-4 text-white font-semibold bg-gradient-to-r from-cyan-400 to-cyan-600 hover:from-cyan-500 hover:to-cyan-700 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group transform hover:scale-105 hover:-translate-y-1 active:scale-95 active:translate-y-0"
           >
             <span className="relative z-10">
               {isLoading ? (
-                <AiOutlineLoading3Quarters className="animate-spin" />
+                <div className="flex items-center gap-2">
+                  <AiOutlineLoading3Quarters className="animate-spin h-5 w-5" />
+                  Отправка...
+                </div>
               ) : (
                 'Отправить заявку'
               )}
             </span>
-            <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+            <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-20 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
           </button>
         </form>
       </FormProvider>
