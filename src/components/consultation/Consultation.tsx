@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { useForm, FormProvider, Controller, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { AiOutlineLoading3Quarters, AiOutlineCalendar } from 'react-icons/ai'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { ChevronDownIcon } from 'lucide-react'
 import { useMediaQuery } from 'react-responsive'
 import { toast } from 'react-toastify'
