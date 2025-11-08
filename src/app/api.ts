@@ -17,7 +17,7 @@ export const sendToBot = async (fullName: string) => {
   const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
   const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID
 
-  const message = `🆕 New Recommendation Created!       👤 By: ${fullName}`
+  const message = `Новая рекомендация! 👤 От: ${fullName}`
 
   await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
     chat_id: chatId,
