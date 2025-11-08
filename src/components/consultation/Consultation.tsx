@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import { useGetAvailabilityQuery, useSubmitConsultationMutation } from '~/app/messages/messages.api'
 import { formSchema, TFormValues } from './utils/validation'
+import { sendToBotRecord } from '~/app/api'
 
 const Consultation: React.FC = () => {
   const methods = useForm<TFormValues>({
@@ -102,6 +103,7 @@ const Consultation: React.FC = () => {
         start: selectedTimeSlot.iso,
         tzOffset: Number(new Date().getTimezoneOffset()),
       }).unwrap()
+      await sendToBotRecord(data?.name)
 
       await refetch()
       reset({ name: '', phoneNumber: '', service: selectedService, date: selectedDate, time: '' })
