@@ -57,7 +57,9 @@ const Navbar = () => {
         setForceActive(false)
       }
     }
-    window.addEventListener('scroll', onScroll)
+    // Check initial scroll position
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [isMenuOpen, open, isHomePage])
 
@@ -143,11 +145,11 @@ const Navbar = () => {
     <nav
       aria-label="Main navigation"
       className={clsx(
-        'flex justify-between items-center px-6 md:px-20 py-3 fixed top-0 left-0 right-0 z-50 transition-colors duration-300',
+        'flex justify-between items-center px-6 md:px-20 py-3 fixed top-0 left-0 right-0 z-[9999] transition-colors duration-300',
         isNavActive
           ? mode === 'dark'
-            ? 'bg-linear-to-r from-black to-gray-900 shadow-md text-white'
-            : 'bg-linear-to-r from-white to-cyan-200 shadow-md text-black'
+            ? 'bg-gradient-to-r from-black to-gray-900 shadow-md text-white'
+            : 'bg-gradient-to-r from-white to-cyan-200 shadow-md text-black'
           : 'bg-transparent',
       )}
     >
@@ -341,7 +343,7 @@ const Navbar = () => {
                       className={clsx(
                         'font-bold mb-8 uppercase font-sans bg-clip-text',
                         mode === 'dark'
-                          ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                          ? 'bg-gradient-to-r from-white via-gray-400 to-white text-transparent'
                           : 'bg-gradient-to-r from-white via-cyan-200 to-white text-transparent',
                       )}
                       role="menuitem"
@@ -357,7 +359,7 @@ const Navbar = () => {
                       className={clsx(
                         'font-bold mb-8 uppercase font-sans bg-clip-text',
                         mode === 'dark'
-                          ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                          ? 'bg-gradient-to-r from-white via-gray-400 to-white text-transparent'
                           : 'bg-gradient-to-r from-white via-cyan-200 to-white text-transparent',
                       )}
                       role="menuitem"
