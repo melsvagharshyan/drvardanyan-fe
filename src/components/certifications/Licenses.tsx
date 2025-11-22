@@ -2,11 +2,14 @@ import { useEffect, useMemo, useState } from 'react'
 import { certificationsLarge } from './utils/constants'
 import Slider from 'react-slick'
 import { useMediaQuery } from 'react-responsive'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
 const Licenses = () => {
   const [active, setActive] = useState<string | null>(null)
+  const mode = useSelector((state: any) => state.theme.mode)
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow
@@ -46,16 +49,34 @@ const Licenses = () => {
   )
 
   return (
-    <section className="w-full bg-gradient-to-r from-white to-cyan-200 py-10" aria-labelledby="licenses-title">
+    <section
+      className={clsx(
+        'w-full py-10 transition-colors duration-300',
+        mode === 'dark'
+          ? 'bg-linear-to-r from-black to-gray-900 text-white'
+          : 'bg-linear-to-r from-white to-cyan-200 text-black',
+      )}
+      aria-labelledby="licenses-title"
+    >
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center mb-8">
           <h2
             id="licenses-title"
-            className="text-2xl sm:text-3xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
+            className={clsx(
+              'text-2xl sm:text-3xl font-bold uppercase font-sans bg-clip-text',
+              mode === 'dark'
+                ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+            )}
           >
             Лицензии и разрешительные документы
           </h2>
-          <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
+          <p
+            className={clsx(
+              'mt-2 max-w-2xl mx-auto',
+              mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+            )}
+          >
             Подтверждение квалификации и права на осуществление стоматологической деятельности.
           </p>
         </header>
@@ -65,12 +86,18 @@ const Licenses = () => {
             <div key={id} className="px-2">
               <button
                 onClick={() => setActive(image)}
-                className="group relative w-full cursor-pointer overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-300"
+                className={clsx(
+                  'group relative w-full cursor-pointer overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300',
+                  mode === 'dark' ? 'bg-gray-800' : 'bg-white',
+                )}
               >
                 <img
                   src={image}
                   alt={`Лицензия ${id}`}
-                  className="w-full h-[380px] sm:h-[420px] object-contain p-4 bg-white"
+                  className={clsx(
+                    'w-full h-[380px] sm:h-[420px] object-contain p-4',
+                    mode === 'dark' ? 'bg-gray-800' : 'bg-white',
+                  )}
                   loading="lazy"
                 />
                 <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

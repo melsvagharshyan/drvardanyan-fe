@@ -11,6 +11,8 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { IoClose } from 'react-icons/io5'
 import { sendToBot } from '~/app/api'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 interface Props {
   isOpen: boolean
@@ -21,6 +23,7 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const [image, setImage] = useState<any>('')
   const [createRecommendation, { isLoading }] = useCreateRecommendationsMutation()
+  const mode = useSelector((state: any) => state.theme.mode)
 
   const {
     register,
@@ -130,22 +133,47 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
     >
       <div
         ref={modalRef}
-        className="bg-white rounded-3xl shadow-2xl w-full max-w-xl p-8 animate-fade-in"
+        className={clsx(
+          'rounded-3xl shadow-2xl w-full max-w-xl p-8 animate-fade-in',
+          mode === 'dark' ? 'bg-gray-900' : 'bg-white',
+        )}
       >
         <span className="flex justify-center w-full">
-          <h2 className="text-2xl inline-block text-center font-bold mb-8 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
+          <h2
+            className={clsx(
+              'text-2xl inline-block text-center font-bold mb-8 font-sans bg-clip-text',
+              mode === 'dark'
+                ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+            )}
+          >
             Оставить отзыв
           </h2>
         </span>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="space-y-5 text-gray-700 text-sm md:text-base"
+          className={clsx(
+            'space-y-5 text-sm md:text-base',
+            mode === 'dark' ? 'text-gray-300' : 'text-gray-700',
+          )}
         >
           <div>
-            <label className="block mb-1 font-medium">Полное имя</label>
+            <label
+              className={clsx(
+                'block mb-1 font-medium',
+                mode === 'dark' ? 'text-white' : 'text-gray-700',
+              )}
+            >
+              Полное имя
+            </label>
             <input
               {...register('fullName')}
-              className="w-full rounded-2xl px-4 py-2 border border-gray-300 shadow-inner focus:outline-none focus:ring-1 focus:ring-cyan-300 transition-all duration-300 placeholder:italic placeholder:text-gray-400"
+              className={clsx(
+                'w-full rounded-2xl px-4 py-2 border shadow-inner focus:outline-none focus:ring-1 focus:ring-cyan-300 transition-all duration-300 placeholder:italic',
+                mode === 'dark'
+                  ? 'bg-gray-800 text-white border-gray-600 placeholder:text-gray-400'
+                  : 'border-gray-300 placeholder:text-gray-400',
+              )}
             />
             {errors.fullName && (
               <p className="text-red-500 mt-1">{getErrorText(errors.fullName.message!)}</p>
@@ -153,17 +181,36 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Текст отзыва</label>
+            <label
+              className={clsx(
+                'block mb-1 font-medium',
+                mode === 'dark' ? 'text-white' : 'text-gray-700',
+              )}
+            >
+              Текст отзыва
+            </label>
             <textarea
               {...register('recommendation')}
-              className="w-full h-28 resize-none rounded-2xl px-4 py-2 border border-gray-300 shadow-inner focus:outline-none focus:ring-1 focus:ring-cyan-300 transition-all duration-300 placeholder:italic placeholder:text-gray-400"
+              className={clsx(
+                'w-full h-28 resize-none rounded-2xl px-4 py-2 border shadow-inner focus:outline-none focus:ring-1 focus:ring-cyan-300 transition-all duration-300 placeholder:italic',
+                mode === 'dark'
+                  ? 'bg-gray-800 text-white border-gray-600 placeholder:text-gray-400'
+                  : 'border-gray-300 placeholder:text-gray-400',
+              )}
             />
             {errors.recommendation && (
               <p className="text-red-500 mt-1">{getErrorText(errors.recommendation.message!)}</p>
             )}
           </div>
           <div>
-            <label className="block mb-1 font-medium">Оценка</label>
+            <label
+              className={clsx(
+                'block mb-1 font-medium',
+                mode === 'dark' ? 'text-white' : 'text-gray-700',
+              )}
+            >
+              Оценка
+            </label>
             <Controller
               name="stars"
               control={control}
@@ -187,9 +234,23 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Изображение</label>
+            <label
+              className={clsx(
+                'block mb-1 font-medium',
+                mode === 'dark' ? 'text-white' : 'text-gray-700',
+              )}
+            >
+              Изображение
+            </label>
             <div className="flex items-center gap-3">
-              <label className="flex items-center gap-2 px-4 py-2 bg-cyan-100 text-cyan-700 font-semibold rounded-xl cursor-pointer hover:bg-cyan-200 transition">
+              <label
+                className={clsx(
+                  'flex items-center gap-2 px-4 py-2 font-semibold rounded-xl cursor-pointer transition',
+                  mode === 'dark'
+                    ? 'bg-gray-800 text-cyan-300 hover:bg-gray-700'
+                    : 'bg-cyan-100 text-cyan-700 hover:bg-cyan-200',
+                )}
+              >
                 <FaUpload className="text-cyan-600" />
                 Загрузить
                 <input type="file" accept="image/*" onChange={uploadImage} className="hidden" />
@@ -207,8 +268,16 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
                     aria-label="Remove image"
                     className="p-0 m-0 cursor-pointer"
                   >
-                    <div className="bg-white absolute -top-2 -right-2 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.4)] p-1 flex items-center justify-center">
-                      <IoClose size={17} className="text-gray-600" />
+                    <div
+                      className={clsx(
+                        'absolute -top-2 -right-2 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.4)] p-1 flex items-center justify-center',
+                        mode === 'dark' ? 'bg-gray-800' : 'bg-white',
+                      )}
+                    >
+                      <IoClose
+                        size={17}
+                        className={mode === 'dark' ? 'text-gray-300' : 'text-gray-600'}
+                      />
                     </div>
                   </button>
                 </div>
@@ -220,7 +289,12 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="relative overflow-hidden shadow-lg hover:shadow-2xl duration-300 w-full text-center flex justify-center items-center gap-2 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-4 rounded-4xl font-semibold transition-all group disabled:opacity-50"
+              className={clsx(
+                'relative overflow-hidden shadow-lg hover:shadow-2xl duration-300 w-full text-center flex justify-center items-center gap-2 cursor-pointer py-3 px-4 rounded-4xl font-semibold transition-all group disabled:opacity-50',
+                mode === 'dark'
+                  ? 'bg-gray-800 text-white hover:bg-gray-700'
+                  : 'bg-gradient-to-r from-cyan-200 to-cyan-500 text-white',
+              )}
             >
               <span className="relative z-10">
                 {isLoading ? <AiOutlineLoading3Quarters className="animate-spin" /> : 'Отправить'}
@@ -230,7 +304,12 @@ export const RecommendationModal: FC<Props> = ({ isOpen, onClose }) => {
             <button
               type="button"
               onClick={onClose}
-              className="relative overflow-hidden shadow-lg hover:shadow-2xl duration-300 w-full cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-800 py-3 px-4 rounded-4xl font-semibold transition-all group"
+              className={clsx(
+                'relative overflow-hidden shadow-lg hover:shadow-2xl duration-300 w-full cursor-pointer py-3 px-4 rounded-4xl font-semibold transition-all group',
+                mode === 'dark'
+                  ? 'bg-gray-800 hover:bg-gray-700 text-white'
+                  : 'bg-gray-100 hover:bg-gray-200 text-gray-800',
+              )}
             >
               <span className="relative z-10">Отмена</span>
               <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>

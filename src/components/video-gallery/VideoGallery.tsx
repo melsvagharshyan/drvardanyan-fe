@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { Play } from 'lucide-react'
 import VideoModal from '~/modals/VideoModal'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 interface VideoItem {
   id: string
@@ -18,17 +20,34 @@ interface VideoGalleryProps {
 const VideoGallery = ({ videos, heading, description }: VideoGalleryProps) => {
   const [openVideo, setOpenVideo] = useState<VideoItem | null>(null)
   const videoRefs = useRef<Record<string, HTMLVideoElement | null>>({})
+  const mode = useSelector((state: any) => state.theme.mode)
 
   return (
     <section>
       {(heading || description) && (
         <header className="text-center mb-8">
           {heading && (
-            <h2 className="text-2xl sm:text-3xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
+            <h2
+              className={clsx(
+                'text-2xl sm:text-3xl font-bold uppercase font-sans bg-clip-text',
+                mode === 'dark'
+                  ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                  : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+              )}
+            >
               {heading}
             </h2>
           )}
-          {description && <p className="text-gray-600 mt-2 max-w-2xl mx-auto">{description}</p>}
+          {description && (
+            <p
+              className={clsx(
+                'mt-2 max-w-2xl mx-auto',
+                mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+              )}
+            >
+              {description}
+            </p>
+          )}
         </header>
       )}
 

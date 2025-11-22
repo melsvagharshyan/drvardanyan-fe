@@ -3,9 +3,12 @@ import { ArrowLeft } from 'lucide-react'
 import { detailedRoutineImages } from '~/components/routine/utils/constants'
 import Layout from '~/components/layout/Layout'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 const RoutinePage = () => {
   const navigate = useNavigate()
+  const mode = useSelector((state: any) => state.theme.mode)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -18,13 +21,25 @@ const RoutinePage = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-30 bg-gradient-to-br from-white via-cyan-50 to-cyan-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div
+        className={clsx(
+          'min-h-screen pt-30 py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-300',
+          mode === 'dark'
+            ? 'bg-linear-to-r from-black to-gray-900 text-white'
+            : 'bg-gradient-to-br from-white via-cyan-50 to-cyan-100',
+        )}
+      >
         <div className="max-w-screen-xl mx-auto">
           {/* Header with back button */}
           <div className="flex items-center mb-8">
             <button
               onClick={handleBack}
-              className="flex cursor-pointer items-center gap-2 text-cyan-600 hover:text-cyan-800 transition-colors duration-200"
+              className={clsx(
+                'flex cursor-pointer items-center gap-2 transition-colors duration-200',
+                mode === 'dark'
+                  ? 'text-cyan-400 hover:text-cyan-300'
+                  : 'text-cyan-600 hover:text-cyan-800',
+              )}
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="font-medium">Назад</span>
@@ -33,10 +48,22 @@ const RoutinePage = () => {
 
           {/* Page Title */}
           <header className="text-center mb-12">
-            <h1 className="text-3xl sm:text-5xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text mb-4">
+            <h1
+              className={clsx(
+                'text-3xl sm:text-5xl font-bold uppercase font-sans bg-clip-text mb-4',
+                mode === 'dark'
+                  ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                  : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+              )}
+            >
               Наш рабочий процесс
             </h1>
-            <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
+            <p
+              className={clsx(
+                'text-lg sm:text-xl max-w-3xl mx-auto',
+                mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+              )}
+            >
               Детальный обзор профессиональных стандартов и методик современной стоматологии. Каждый
               этап работы соответствует международным протоколам для обеспечения высочайшего
               качества лечения.
@@ -48,7 +75,10 @@ const RoutinePage = () => {
             {detailedRoutineImages.map((item) => (
               <div
                 key={item.id}
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white"
+                className={clsx(
+                  'group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300',
+                  mode === 'dark' ? 'bg-gray-800' : 'bg-white',
+                )}
               >
                 <div className="relative overflow-hidden">
                   <img
@@ -59,10 +89,24 @@ const RoutinePage = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-cyan-700 transition-colors duration-200">
+                  <h3
+                    className={clsx(
+                      'text-xl font-bold mb-3 transition-colors duration-200',
+                      mode === 'dark'
+                        ? 'text-white group-hover:text-cyan-400'
+                        : 'text-gray-800 group-hover:text-cyan-700',
+                    )}
+                  >
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">{item.description}</p>
+                  <p
+                    className={clsx(
+                      'text-sm leading-relaxed',
+                      mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+                    )}
+                  >
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}

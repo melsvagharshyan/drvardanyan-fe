@@ -3,9 +3,12 @@ import { ArrowLeft } from 'lucide-react'
 import { detailedClientResults } from '~/components/routine/utils/constants'
 import Layout from '~/components/layout/Layout'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 const ClientResultsPage = () => {
   const navigate = useNavigate()
+  const mode = useSelector((state: any) => state.theme.mode)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -32,13 +35,25 @@ const ClientResultsPage = () => {
 
   return (
     <Layout>
-      <div className="min-h-screen pt-30 bg-gradient-to-br from-white via-cyan-50 to-cyan-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div
+        className={clsx(
+          'min-h-screen pt-30 py-8 px-4 sm:px-6 lg:px-8 transition-colors duration-300',
+          mode === 'dark'
+            ? 'bg-linear-to-r from-black to-gray-900 text-white'
+            : 'bg-gradient-to-br from-white via-cyan-50 to-cyan-100',
+        )}
+      >
         <div className="max-w-screen-xl mx-auto">
           {/* Header with back button */}
           <div className="flex items-center mb-8">
             <button
               onClick={handleBack}
-              className="flex cursor-pointer items-center gap-2 text-cyan-600 hover:text-cyan-800 transition-colors duration-200"
+              className={clsx(
+                'flex cursor-pointer items-center gap-2 transition-colors duration-200',
+                mode === 'dark'
+                  ? 'text-cyan-400 hover:text-cyan-300'
+                  : 'text-cyan-600 hover:text-cyan-800',
+              )}
             >
               <ArrowLeft className="w-5 h-5" />
               <span className="font-medium">Назад</span>
@@ -47,10 +62,22 @@ const ClientResultsPage = () => {
 
           {/* Page Title */}
           <header className="text-center mb-12">
-            <h1 className="text-3xl sm:text-5xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text mb-4">
+            <h1
+              className={clsx(
+                'text-3xl sm:text-5xl font-bold uppercase font-sans bg-clip-text mb-4',
+                mode === 'dark'
+                  ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                  : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+              )}
+            >
               Результаты наших пациентов
             </h1>
-            <p className="text-gray-600 text-lg sm:text-xl max-w-3xl mx-auto">
+            <p
+              className={clsx(
+                'text-lg sm:text-xl max-w-3xl mx-auto',
+                mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+              )}
+            >
               Галерея успешных лечений. Каждый случай демонстрирует профессиональный подход и
               высокое качество наших услуг.
             </p>
@@ -63,7 +90,10 @@ const ClientResultsPage = () => {
             {detailedClientResults.map((item) => (
               <div
                 key={item.id}
-                className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-white"
+                className={clsx(
+                  'group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300',
+                  mode === 'dark' ? 'bg-gray-800' : 'bg-white',
+                )}
               >
                 {/* Before/After Images Container */}
                 <div className="relative h-80 sm:h-96">
@@ -98,17 +128,46 @@ const ClientResultsPage = () => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-cyan-700 transition-colors duration-200">
+                  <h3
+                    className={clsx(
+                      'text-xl font-bold mb-3 transition-colors duration-200',
+                      mode === 'dark'
+                        ? 'text-white group-hover:text-cyan-400'
+                        : 'text-gray-800 group-hover:text-cyan-700',
+                    )}
+                  >
                     {item.title}
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">{item.description}</p>
+                  <p
+                    className={clsx(
+                      'text-sm leading-relaxed mb-4',
+                      mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+                    )}
+                  >
+                    {item.description}
+                  </p>
 
                   {/* Patient Info */}
-                  <div className="flex justify-between items-center pt-3 border-t border-gray-100">
-                    <div className="text-xs text-gray-500">
+                  <div
+                    className={clsx(
+                      'flex justify-between items-center pt-3 border-t',
+                      mode === 'dark' ? 'border-gray-700' : 'border-gray-100',
+                    )}
+                  >
+                    <div
+                      className={clsx(
+                        'text-xs',
+                        mode === 'dark' ? 'text-gray-400' : 'text-gray-500',
+                      )}
+                    >
                       <span className="font-semibold">Возраст:</span> {item.patientAge}
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div
+                      className={clsx(
+                        'text-xs',
+                        mode === 'dark' ? 'text-gray-400' : 'text-gray-500',
+                      )}
+                    >
                       <span className="font-semibold">Срок:</span> {item.treatmentDuration}
                     </div>
                   </div>
@@ -119,17 +178,38 @@ const ClientResultsPage = () => {
 
           {/* Call to Action */}
           <div className="text-center mt-16">
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">Хотите такой же результат?</h3>
-              <p className="text-gray-600 mb-6">
+            <div
+              className={clsx(
+                'backdrop-blur-sm rounded-2xl p-8 shadow-lg max-w-2xl mx-auto',
+                mode === 'dark' ? 'bg-gray-800/80' : 'bg-white/80',
+              )}
+            >
+              <h3
+                className={clsx(
+                  'text-2xl font-bold mb-4',
+                  mode === 'dark' ? 'text-white' : 'text-gray-800',
+                )}
+              >
+                Хотите такой же результат?
+              </h3>
+              <p
+                className={clsx('mb-6', mode === 'dark' ? 'text-gray-300' : 'text-gray-600')}
+              >
                 Запишитесь и начните путь к здоровой и красивой улыбке уже сегодня
               </p>
               <button
                 onClick={handleConsultationClick}
-                className="relative cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
+                className={clsx(
+                  'relative cursor-pointer overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 py-3 px-8 rounded-full font-semibold group transform hover:scale-105',
+                  mode === 'dark'
+                    ? 'bg-gray-800 text-white hover:bg-gray-700'
+                    : 'bg-gradient-to-r from-cyan-200 to-cyan-500 text-white',
+                )}
               >
                 <span className="relative z-10">Записаться</span>
-                <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+                {mode !== 'dark' && (
+                  <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+                )}
               </button>
             </div>
           </div>

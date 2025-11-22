@@ -2,7 +2,7 @@ import React from 'react'
 import { FaInstagram, FaTelegramPlane, FaWhatsapp, FaPhone, FaEnvelope } from 'react-icons/fa'
 import { Link as ScrollLink } from 'react-scroll'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-
+import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 
 const Footer: React.FC = () => {
@@ -10,9 +10,17 @@ const Footer: React.FC = () => {
   const navigate = useNavigate()
   const isInProjectsPage = location.pathname.includes('project')
   const isHomePage = location.pathname === '/'
+  const mode = useSelector((state: any) => state.theme.mode)
 
   return (
-    <footer className="bg-[#0e232b] text-white w-full px-6 py-8 md:px-10 md:py-10">
+    <footer
+      className={clsx(
+        'w-full px-6 py-8 md:px-10 md:py-10 transition-colors duration-300',
+        mode === 'dark'
+          ? 'bg-linear-to-r from-black to-gray-900 text-white'
+          : 'bg-[#0e232b] text-white',
+      )}
+    >
       <section className="flex flex-col md:flex-row justify-between items-start gap-6 md:gap-10">
         <div className="w-full max-w-md flex flex-col space-y-4 md:space-y-6 order-1 md:order-none">
           {isInProjectsPage ? (
@@ -72,7 +80,12 @@ const Footer: React.FC = () => {
               </span>
             </button>
           )}
-          <p className="text-silver text-sm">
+          <p
+            className={clsx(
+              'text-sm',
+              mode === 'dark' ? 'text-gray-400' : 'text-silver',
+            )}
+          >
             Профессиональная платформа для представления стоматологических услуг, связи с пациентами
             и записи на приём.
           </p>
@@ -84,7 +97,12 @@ const Footer: React.FC = () => {
               href="https://instagram.com/vahan_2906"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors"
+              className={clsx(
+                'p-3 border rounded-lg transition-colors',
+                mode === 'dark'
+                  ? 'border-gray-600 hover:bg-gray-800'
+                  : 'border-gray-600 hover:bg-gray-800',
+              )}
               aria-label="Instagram"
             >
               <FaInstagram size={20} />
@@ -93,7 +111,12 @@ const Footer: React.FC = () => {
               href="https://t.me/Vahan970"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors"
+              className={clsx(
+                'p-3 border rounded-lg transition-colors',
+                mode === 'dark'
+                  ? 'border-gray-600 hover:bg-gray-800'
+                  : 'border-gray-600 hover:bg-gray-800',
+              )}
               aria-label="Telegram"
             >
               <FaTelegramPlane size={20} />
@@ -102,7 +125,12 @@ const Footer: React.FC = () => {
               href="https://wa.me/37433140102"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 border border-gray-600 rounded-lg hover:bg-gray-800 transition-colors"
+              className={clsx(
+                'p-3 border rounded-lg transition-colors',
+                mode === 'dark'
+                  ? 'border-gray-600 hover:bg-gray-800'
+                  : 'border-gray-600 hover:bg-gray-800',
+              )}
               aria-label="WhatsApp"
             >
               <FaWhatsapp size={20} />
@@ -149,19 +177,34 @@ const Footer: React.FC = () => {
 
         <address className="not-italic flex flex-col items-start md:items-end order-2 md:order-none w-full md:w-auto">
           <ul className="flex flex-col items-start md:items-end space-y-1 md:space-y-2 text-sm md:text-base">
-            <li className="flex items-center gap-2 text-silver">
+            <li
+              className={clsx(
+                'flex items-center gap-2',
+                mode === 'dark' ? 'text-gray-400' : 'text-silver',
+              )}
+            >
               <FaPhone className="text-cyan-400" />
               <a href="tel:+79101660102" className="hover:underline">
                 +7 (910) 166-01-02
               </a>
             </li>
-            <li className="flex items-center gap-2 text-silver">
+            <li
+              className={clsx(
+                'flex items-center gap-2',
+                mode === 'dark' ? 'text-gray-400' : 'text-silver',
+              )}
+            >
               <FaPhone className="text-cyan-400" />
               <a href="tel:+37433140102" className="hover:underline">
                 + (374) 33-140-102
               </a>
             </li>
-            <li className="flex items-center gap-2 text-silver">
+            <li
+              className={clsx(
+                'flex items-center gap-2',
+                mode === 'dark' ? 'text-gray-400' : 'text-silver',
+              )}
+            >
               <FaEnvelope className="text-cyan-400" />
               <a href="mailto:vahan.vardanyan.97@bk.ru" className="hover:underline">
                 vahan.vardanyan.97@bk.ru
@@ -171,7 +214,14 @@ const Footer: React.FC = () => {
         </address>
       </section>
 
-      <div className="w-full mt-6 border-t border-gray-600 pt-4 text-center md:text-right text-gray-400 text-xs">
+      <div
+        className={clsx(
+          'w-full mt-6 border-t pt-4 text-center md:text-right text-xs',
+          mode === 'dark'
+            ? 'border-gray-700 text-gray-400'
+            : 'border-gray-600 text-gray-400',
+        )}
+      >
         © {new Date().getFullYear()} Dr. Vardanyan. Все права защищены.
       </div>
     </footer>

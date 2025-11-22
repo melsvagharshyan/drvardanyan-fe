@@ -5,6 +5,8 @@ import { useMediaQuery } from 'react-responsive'
 import { useMemo, useState } from 'react'
 import { RecommendationModal } from '~/modals/RecommendationModal'
 import { useGetRecommendationsQuery } from '~/app/recommendations/recommendations.api'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 const defaultAvatar =
   'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1746967371/orig_sxg7yl.svg'
@@ -12,6 +14,7 @@ const defaultAvatar =
 const Recommendations = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 640px)' })
   const { data: recommendations } = useGetRecommendationsQuery()
+  const mode = useSelector((state: any) => state.theme.mode)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -32,10 +35,22 @@ const Recommendations = () => {
   return (
     <section
       id="recommendations"
-      className="w-full bg-gradient-to-r from-white to-cyan-200 py-16 px-4 sm:px-6 lg:px-8"
+      className={clsx(
+        'w-full py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-300',
+        mode === 'dark'
+          ? 'bg-linear-to-r from-black to-gray-900 text-white'
+          : 'bg-linear-to-r from-white to-cyan-200 text-black',
+      )}
     >
       <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
-        <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
+        <h2
+          className={clsx(
+            'text-2xl sm:text-4xl font-bold uppercase font-sans bg-clip-text',
+            mode === 'dark'
+              ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+              : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+          )}
+        >
           Отзывы пациентов
         </h2>
       </header>
@@ -58,10 +73,22 @@ const Recommendations = () => {
                   className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover mb-4"
                 />
                 <figcaption className="text-center">
-                  <h3 className="text-base sm:text-lg font-bold text-gray-800">{rec.fullName}</h3>
+                  <h3
+                    className={clsx(
+                      'text-base sm:text-lg font-bold',
+                      mode === 'dark' ? 'text-white' : 'text-gray-800',
+                    )}
+                  >
+                    {rec.fullName}
+                  </h3>
                 </figcaption>
               </figure>
-              <blockquote className="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed italic">
+              <blockquote
+                className={clsx(
+                  'text-sm sm:text-base mb-4 leading-relaxed italic',
+                  mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+                )}
+              >
                 "{rec.recommendation}"
               </blockquote>
               <div className="flex gap-1 justify-center">
@@ -82,7 +109,12 @@ const Recommendations = () => {
       <div className="mt-10 sm:mt-16 flex justify-center">
         <button
           onClick={() => setIsModalOpen(true)}
-          className="relative overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-6 rounded-full font-semibold group"
+          className={clsx(
+            'relative overflow-hidden shadow-lg hover:shadow-2xl transition duration-300 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer py-3 px-6 rounded-full font-semibold group',
+            mode === 'dark'
+              ? 'bg-gray-800 text-white hover:bg-gray-700'
+              : 'bg-gradient-to-r from-cyan-200 to-cyan-500 text-white',
+          )}
         >
           <span className="relative z-10">Оставить отзыв</span>
           <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>

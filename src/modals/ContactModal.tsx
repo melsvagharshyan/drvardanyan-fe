@@ -13,6 +13,8 @@ import {
   FaTimes,
 } from 'react-icons/fa'
 import QRImage from '~/assets/images/Vahan.png'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 interface Props {
   isOpen: boolean
@@ -23,6 +25,7 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
   const modalRef = useRef<HTMLDivElement>(null)
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
   const [isShareModalOpen, setShareModalOpen] = useState(false)
+  const mode = useSelector((state: any) => state.theme.mode)
 
   const [{ y }, api] = useSpring(() => ({ y: 0 }))
 
@@ -91,24 +94,42 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
 
   const ContactContent = () => (
     <div>
-      <h2 className="text-xl font-bold mb-6 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text ">
+      <h2
+        className={clsx(
+          'text-xl font-bold mb-6 font-sans bg-clip-text',
+          mode === 'dark'
+            ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+            : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+        )}
+      >
         Контактная информация
       </h2>
-      <ul className="space-y-4 text-base md:text-lg text-gray-800">
+      <ul
+        className={clsx(
+          'space-y-4 text-base md:text-lg',
+          mode === 'dark' ? 'text-gray-300' : 'text-gray-800',
+        )}
+      >
         <li className="flex items-center gap-3 py-1">
-          <FaEnvelope className="text-black text-xl" />
+          <FaEnvelope
+            className={clsx('text-xl', mode === 'dark' ? 'text-white' : 'text-black')}
+          />
           <a href="mailto:vahan.vardanyan.97@bk.ru" className="hover:underline">
             vahan.vardanyan.97@bk.ru
           </a>
         </li>
         <li className="flex items-center gap-3 py-1">
-          <FaPhone className="text-black text-xl" />
+          <FaPhone
+            className={clsx('text-xl', mode === 'dark' ? 'text-white' : 'text-black')}
+          />
           <a href="tel:+79101660102" className="hover:underline">
             +7 (910) 166-01-02
           </a>
         </li>
         <li className="flex items-center gap-3 py-1">
-          <FaTelegramPlane className="text-black text-xl" />
+          <FaTelegramPlane
+            className={clsx('text-xl', mode === 'dark' ? 'text-white' : 'text-black')}
+          />
           <a
             href="https://t.me/Vahan970"
             target="_blank"
@@ -119,7 +140,9 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
           </a>
         </li>
         <li className="flex items-center gap-3 py-1">
-          <FaInstagram className="text-black text-xl" />
+          <FaInstagram
+            className={clsx('text-xl', mode === 'dark' ? 'text-white' : 'text-black')}
+          />
           <a
             href="https://www.instagram.com/vahan_2906"
             target="_blank"
@@ -130,7 +153,9 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
           </a>
         </li>
         <li className="flex items-center gap-3 py-1">
-          <FaWhatsapp className="text-black text-xl" />
+          <FaWhatsapp
+            className={clsx('text-xl', mode === 'dark' ? 'text-white' : 'text-black')}
+          />
           <a
             href="https://wa.me/37494541615"
             target="_blank"
@@ -142,7 +167,12 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
         </li>
       </ul>
       <button
-        className="cursor-pointer mt-8 w-full bg-cyan-600 hover:bg-cyan-700 text-base md:text-lg py-3 text-white font-semibold bg-gradient-to-r from-cyan-200 to-cyan-500 rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+        className={clsx(
+          'cursor-pointer mt-8 w-full text-base md:text-lg py-3 font-semibold rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2',
+          mode === 'dark'
+            ? 'bg-gray-800 text-white hover:bg-gray-700'
+            : 'bg-cyan-600 hover:bg-cyan-700 text-white bg-gradient-to-r from-cyan-200 to-cyan-500',
+        )}
         onClick={() => setShareModalOpen(true)}
       >
         <FaShare className="text-lg" />
@@ -165,19 +195,28 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
             />
             <animated.div
               {...bind()}
-              className="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-lg z-50 touch-none"
+              className={clsx(
+                'fixed bottom-0 left-0 w-full backdrop-blur-lg z-50 touch-none',
+                mode === 'dark' ? 'bg-gray-900/90' : 'bg-white/90',
+              )}
               style={{
                 transform: y.to((v: number) => `translateY(${v}px)`),
                 touchAction: 'none',
                 borderRadius: '20px 20px 0 0',
                 maxHeight: '80vh',
-                backgroundImage: `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
+                backgroundImage:
+                  mode === 'dark'
+                    ? undefined
+                    : `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
                 backgroundSize: 'cover',
               }}
               onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
             >
               <div className="relative p-6 ">
-                <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-10 h-1 bg-gray-400 rounded-full " />
+                <div
+                  className="absolute top-2 left-1/2 transform -translate-x-1/2 w-10 h-1 rounded-full"
+                  style={{ backgroundColor: mode === 'dark' ? '#555' : '#9ca3af' }}
+                />
                 <div className="mt-4">
                   <ContactContent />
                 </div>
@@ -192,10 +231,18 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
               className="absolute inset-0 bg-black/50"
               onClick={() => setShareModalOpen(false)}
             />
-            <div className="relative w-full bg-white rounded-t-2xl shadow-2xl p-6">
+            <div
+              className={clsx(
+                'relative w-full rounded-t-2xl shadow-2xl p-6',
+                mode === 'dark' ? 'bg-gray-900' : 'bg-white',
+              )}
+            >
               <button
                 aria-label="Закрыть"
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                className={clsx(
+                  'absolute top-3 right-3',
+                  mode === 'dark' ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700',
+                )}
                 onClick={() => {
                   setShareModalOpen(false)
                   onClose()
@@ -203,8 +250,22 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
               >
                 <FaTimes className="w-5 h-5" />
               </button>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Сканируйте QR-код сайта</h3>
-              <p className="text-sm text-gray-500 mb-4">Или поделитесь QR-кодом ниже</p>
+              <h3
+                className={clsx(
+                  'text-lg font-semibold mb-2',
+                  mode === 'dark' ? 'text-white' : 'text-gray-800',
+                )}
+              >
+                Сканируйте QR-код сайта
+              </h3>
+              <p
+                className={clsx(
+                  'text-sm mb-4',
+                  mode === 'dark' ? 'text-gray-400' : 'text-gray-500',
+                )}
+              >
+                Или поделитесь QR-кодом ниже
+              </p>
               <div className="w-full flex items-center justify-center">
                 <img src={QRImage} alt="QR код визитки" className="w-56 h-56 object-contain" />
               </div>
@@ -213,7 +274,12 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
                   await handleShare()
                   setShareModalOpen(false)
                 }}
-                className="cursor-pointer mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-base md:text-lg py-3 text-white font-semibold bg-gradient-to-r from-cyan-200 to-cyan-500 rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                className={clsx(
+                  'cursor-pointer mt-6 w-full text-base md:text-lg py-3 font-semibold rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2',
+                  mode === 'dark'
+                    ? 'bg-gray-800 text-white hover:bg-gray-700'
+                    : 'bg-cyan-600 hover:bg-cyan-700 text-white bg-gradient-to-r from-cyan-200 to-cyan-500',
+                )}
               >
                 <FaShare className="text-lg" />
                 Поделиться QR-кодом
@@ -231,9 +297,15 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
           >
             <div
               ref={modalRef}
-              className="bg-white rounded-2xl shadow-2xl w-full max-w-xl p-8 animate-fade-in "
+              className={clsx(
+                'rounded-2xl shadow-2xl w-full max-w-xl p-8 animate-fade-in',
+                mode === 'dark' ? 'bg-gray-900' : 'bg-white',
+              )}
               style={{
-                backgroundImage: `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
+                backgroundImage:
+                  mode === 'dark'
+                    ? undefined
+                    : `url(https://img.freepik.com/premium-photo/teeth-dental-care-medical-background_147644-52.jpg)`,
                 backgroundSize: 'cover',
               }}
             >
@@ -248,10 +320,18 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
               className="absolute inset-0 bg-black/50"
               onClick={() => setShareModalOpen(false)}
             />
-            <div className="relative bg-white rounded-2xl shadow-2xl p-6 w-[420px] max-w-[90vw]">
+            <div
+              className={clsx(
+                'relative rounded-2xl shadow-2xl p-6 w-[420px] max-w-[90vw]',
+                mode === 'dark' ? 'bg-gray-900' : 'bg-white',
+              )}
+            >
               <button
                 aria-label="Закрыть"
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+                className={clsx(
+                  'absolute top-3 right-3',
+                  mode === 'dark' ? 'text-gray-400 hover:text-gray-200' : 'text-gray-500 hover:text-gray-700',
+                )}
                 onClick={() => {
                   setShareModalOpen(false)
                   onClose()
@@ -259,8 +339,22 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
               >
                 <FaTimes className="w-5 h-5" />
               </button>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Сканируйте QR-код сайта</h3>
-              <p className="text-sm text-gray-500 mb-4">Или поделитесь QR-кодом ниже</p>
+              <h3
+                className={clsx(
+                  'text-lg font-semibold mb-2',
+                  mode === 'dark' ? 'text-white' : 'text-gray-800',
+                )}
+              >
+                Сканируйте QR-код сайта
+              </h3>
+              <p
+                className={clsx(
+                  'text-sm mb-4',
+                  mode === 'dark' ? 'text-gray-400' : 'text-gray-500',
+                )}
+              >
+                Или поделитесь QR-кодом ниже
+              </p>
               <div className="w-full flex items-center justify-center">
                 <img src={QRImage} alt="QR код визитки" className="w-56 h-56 object-contain" />
               </div>
@@ -269,7 +363,12 @@ export const ContactModal: FC<Props> = ({ isOpen, onClose }) => {
                   await handleShare()
                   setShareModalOpen(false)
                 }}
-                className="cursor-pointer mt-6 w-full bg-cyan-600 hover:bg-cyan-700 text-base md:text-lg py-3 text-white font-semibold bg-gradient-to-r from-cyan-200 to-cyan-500 rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2"
+                className={clsx(
+                  'cursor-pointer mt-6 w-full text-base md:text-lg py-3 font-semibold rounded shadow-md hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2',
+                  mode === 'dark'
+                    ? 'bg-gray-800 text-white hover:bg-gray-700'
+                    : 'bg-cyan-600 hover:bg-cyan-700 text-white bg-gradient-to-r from-cyan-200 to-cyan-500',
+                )}
               >
                 <FaShare className="text-lg" />
                 Поделиться QR-кодом

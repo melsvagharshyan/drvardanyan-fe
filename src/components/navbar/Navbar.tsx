@@ -3,10 +3,15 @@ import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { navLinks } from './utils/constants'
 import { CiMenuFries } from 'react-icons/ci'
+import { PiMoonStarsLight } from 'react-icons/pi'
+import { HiOutlineSun } from 'react-icons/hi2'
 import { useDrag } from '@use-gesture/react'
 import { useSpring, animated } from '@react-spring/web'
 import { ContactModal } from '~/modals/ContactModal'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { toggleTheme } from '~/app/slices/themeSlice'
+import { useMediaQuery } from 'react-responsive'
 
 const Navbar = () => {
   const location = useLocation()
@@ -15,6 +20,10 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [open, setOpen] = useState(false)
   const [forceActive, setForceActive] = useState(false)
+  const isMobile = useMediaQuery({ query: '(max-width: 1140px)' })
+
+  const dispatch = useDispatch()
+  const mode = useSelector((state: any) => state.theme.mode)
 
   const [{ y }, api] = useSpring(() => ({ y: 0 }))
   const isHomePage = location.pathname === '/'
@@ -109,8 +118,12 @@ const Navbar = () => {
     clsx(
       "font-mono cursor-pointer relative after:content-[''] after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:transition-all after:duration-300 hover:after:w-full",
       isActive
-        ? 'bg-gradient-to-r from-cyan-500 via-cyan-700 to-slate-900 text-transparent bg-clip-text after:bg-gradient-to-r after:from-cyan-500 after:via-cyan-700 after:to-slate-900'
-        : 'text-white after:bg-white',
+        ? mode === 'dark'
+          ? 'bg-gradient-to-r from-white via-gray-400 to-white text-transparent bg-clip-text after:bg-gradient-to-r after:from-white after:via-gray-400 after:to-white'
+          : 'bg-gradient-to-r from-cyan-500 via-cyan-700 to-slate-900 text-transparent bg-clip-text after:bg-gradient-to-r after:from-cyan-500 after:via-cyan-700 after:to-slate-900'
+        : mode === 'dark'
+          ? 'text-white after:bg-white'
+          : 'text-white after:bg-white',
     )
 
   const isNavActive = forceActive || active
@@ -131,7 +144,11 @@ const Navbar = () => {
       aria-label="Main navigation"
       className={clsx(
         'flex justify-between items-center px-6 md:px-20 py-3 fixed top-0 left-0 right-0 z-50 transition-colors duration-300',
-        isNavActive ? 'bg-gradient-to-r from-white to-cyan-200 shadow-md' : 'bg-transparent',
+        isNavActive
+          ? mode === 'dark'
+            ? 'bg-linear-to-r from-black to-gray-900 shadow-md text-white'
+            : 'bg-linear-to-r from-white to-cyan-200 shadow-md text-black'
+          : 'bg-transparent',
       )}
     >
       {isHomePage ? (
@@ -211,19 +228,69 @@ const Navbar = () => {
             </li>
           ))}
         </ul>
+
+        <div className="flex items-center gap-3">
+          {!isMobile && (
+            <button aria-label="Toggle theme" onClick={() => dispatch(toggleTheme())}>
+              {mode === 'light' ? (
+                <PiMoonStarsLight
+                  size={20}
+                  className={clsx(isNavActive ? 'text-black' : 'text-white', 'cursor-pointer')}
+                />
+              ) : (
+                <HiOutlineSun
+                  size={20}
+                  className={clsx(
+                    !isNavActive ? 'text-white' : mode === 'dark' ? 'text-white' : 'text-black',
+                    'cursor-pointer',
+                  )}
+                />
+              )}
+            </button>
+          )}
+        </div>
       </div>
 
-      <button
-        className="md:hidden "
-        onClick={toggleMenu}
-        aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-      >
-        <CiMenuFries size={30} />
-      </button>
+      {isMobile && (
+        <div className="flex items-center gap-1">
+          <button
+            className={clsx(
+              'md:hidden p-2 rounded-md transition active:scale-95 backdrop-blur-md border',
+              mode === 'dark'
+                ? 'bg-black/20 border-gray-700 text-white'
+                : isNavActive
+                  ? 'bg-black/5 border-white/3 text-black'
+                  : 'bg-white/5 border-white/10 text-white',
+            )}
+            onClick={() => dispatch(toggleTheme())}
+          >
+            {mode === 'light' ? (
+              <PiMoonStarsLight size={20} className="cursor-pointer" />
+            ) : (
+              <HiOutlineSun size={20} className="cursor-pointer" />
+            )}
+          </button>
+
+          <button
+            className={clsx(
+              'md:hidden p-2 rounded-md transition active:scale-95 backdrop-blur-md border',
+              mode === 'dark'
+                ? 'bg-black/20 border-gray-700 text-white'
+                : isNavActive
+                  ? 'bg-black/5 border-white/3  text-black'
+                  : 'bg-white/5 border-white/10 text-white',
+            )}
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+          >
+            <CiMenuFries size={20} className="cursor-pointer" />
+          </button>
+        </div>
+      )}
 
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/50 z-30 transition-opacity duration-300"
+          className={clsx('fixed inset-0 z-30', mode === 'dark' ? 'bg-black/50' : 'bg-black/50')}
           onClick={toggleMenu}
           aria-hidden="true"
         />
@@ -232,12 +299,18 @@ const Navbar = () => {
       {isMenuOpen && (
         <animated.aside
           {...bind()}
-          className="fixed bottom-0 left-0 w-full h-96 bg-white/90 backdrop-blur-lg z-40 touch-none"
+          className={clsx(
+            'fixed bottom-0 left-0 w-full h-96 backdrop-blur-lg z-40',
+            mode === 'dark' ? 'bg-gray-900/50 text-white' : 'bg-white/90',
+          )}
           style={{
             transform: y.to((v: number) => `translateY(${v}px)`),
-            touchAction: 'none',
             borderRadius: '20px 20px 0 0',
-            backgroundImage: `url(https://i.pinimg.com/736x/c4/d2/ef/c4d2ef90bd81e63e3ac9ab9562eebd80.jpg)`,
+            touchAction: 'none',
+            backgroundImage:
+              mode === 'dark'
+                ? undefined
+                : `url(https://i.pinimg.com/736x/c4/d2/ef/c4d2ef90bd81e63e3ac9ab9562eebd80.jpg)`,
             backgroundPosition: 'center',
             backgroundSize: 'cover',
           }}
@@ -245,7 +318,13 @@ const Navbar = () => {
           aria-hidden={!isMenuOpen}
         >
           <div className="relative h-full flex flex-col justify-center items-center gap-10 px-8">
-            <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-black/30 rounded-full" />
+            <div
+              className={clsx(
+                'absolute top-2 left-1/2 -translate-x-1/2 w-12 h-1 rounded-full',
+                mode === 'dark' ? '' : 'bg-black/30',
+              )}
+              style={mode === 'dark' ? { backgroundColor: '#555' } : undefined}
+            />
             <ul className="flex flex-col items-center gap-8" role="menu">
               {navLinks.map(({ title, href }) => (
                 <li key={title} role="none">
@@ -259,7 +338,12 @@ const Navbar = () => {
                         toggleMenu()
                         if (title === 'Contact') setOpen(true)
                       }}
-                      className="font-bold mb-8 uppercase font-sans bg-gradient-to-r from-white via-cyan-200 to-white text-transparent bg-clip-text"
+                      className={clsx(
+                        'font-bold mb-8 uppercase font-sans bg-clip-text',
+                        mode === 'dark'
+                          ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                          : 'bg-gradient-to-r from-white via-cyan-200 to-white text-transparent',
+                      )}
                       role="menuitem"
                     >
                       {getNavText(title)}
@@ -270,7 +354,12 @@ const Navbar = () => {
                         toggleMenu()
                         handleNavigation(href, title)
                       }}
-                      className="font-bold  mb-8 uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
+                      className={clsx(
+                        'font-bold mb-8 uppercase font-sans bg-clip-text',
+                        mode === 'dark'
+                          ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                          : 'bg-gradient-to-r from-white via-cyan-200 to-white text-transparent',
+                      )}
                       role="menuitem"
                     >
                       {getNavText(title)}

@@ -1,10 +1,13 @@
 import { motion } from 'framer-motion'
 import { useMediaQuery } from 'react-responsive'
 import { useContactModal } from '~/contexts/ContactModalContext'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 const About = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 1140px)' })
   const { openContactModal } = useContactModal()
+  const mode = useSelector((state: any) => state.theme.mode)
 
   const VahanImage =
     'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754586434/vahan/2025-08-07_10.06.37_mxr8hm.jpg'
@@ -13,7 +16,12 @@ const About = () => {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="w-full flex justify-center bg-gradient-to-r from-white to-cyan-200 "
+      className={clsx(
+        'w-full flex justify-center transition-colors duration-300',
+        mode === 'dark'
+          ? 'bg-linear-to-r from-black to-gray-900 text-white'
+          : 'bg-linear-to-r from-white to-cyan-200 text-black',
+      )}
     >
       <div className="flex flex-col md:flex-row items-center pt-16  px-6 md:px-12 max-w-7xl w-full">
         {!isMobile ? (
@@ -47,22 +55,42 @@ const About = () => {
             >
               <h2
                 id="about-heading"
-                className="text-4xl font-bold mb-8 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
+                className={clsx(
+                  'text-4xl font-bold mb-8 font-sans bg-clip-text',
+                  mode === 'dark'
+                    ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                    : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+                )}
               >
                 Семейный врач-стоматолог общей практики
               </h2>
-              <p className="text-gray-700 text-lg leading-relaxed max-w-3xl">
+              <p
+                className={clsx(
+                  'text-lg leading-relaxed max-w-3xl',
+                  mode === 'dark' ? 'text-gray-300' : 'text-gray-700',
+                )}
+              >
                 Опытный стоматолог с глубокими знаниями и практическими навыками в диагностике,
                 лечении и профилактике стоматологических заболеваний. Имею обширный опыт работы с
                 пациентами всех возрастов, предоставляя качественное и индивидуальное обслуживание
                 на каждом этапе лечения.
               </p>
-              <p className="text-gray-700 text-lg leading-relaxed max-w-3xl mt-4">
+              <p
+                className={clsx(
+                  'text-lg leading-relaxed max-w-3xl mt-4',
+                  mode === 'dark' ? 'text-gray-300' : 'text-gray-700',
+                )}
+              >
                 Специализируюсь на создании эффективных планов лечения, внимателен к деталям, владею
                 современными методиками и оборудованием. Моя цель — не только лечение, но и
                 обеспечение комфорта и доверия каждого пациента.
               </p>
-              <p className="text-gray-700 text-lg leading-relaxed max-w-3xl mt-4">
+              <p
+                className={clsx(
+                  'text-lg leading-relaxed max-w-3xl mt-4',
+                  mode === 'dark' ? 'text-gray-300' : 'text-gray-700',
+                )}
+              >
                 Навыки и направления работы:{' '}
                 <span className="font-semibold">
                   терапевтическая и эстетическая стоматология, профилактика, протезирование,
@@ -76,7 +104,12 @@ const About = () => {
                   onClick={openContactModal}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="cursor-pointer px-8 py-4 text-lg font-semibold text-gray-800 border-1 border-cyan-300 rounded-full shadow-xl hover:border-white hover:from-cyan-200 hover:to-white hover:text-white hover:bg-cyan-200 w-full max-w-3xs"
+                  className={clsx(
+                    'cursor-pointer px-8 py-4 text-lg font-semibold rounded-full shadow-xl w-full max-w-3xs transition-all duration-300',
+                    mode === 'dark'
+                      ? 'text-white border border-gray-600 hover:bg-gray-800 hover:border-gray-500'
+                      : 'text-gray-800 border border-cyan-300 hover:border-white hover:from-cyan-200 hover:to-white hover:text-white hover:bg-cyan-200',
+                  )}
                 >
                   СВЯЗАТЬСЯ СО МНОЙ
                 </motion.button>
@@ -86,22 +119,42 @@ const About = () => {
             <article>
               <h2
                 id="about-heading"
-                className="text-2xl font-bold mb-6 font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
+                className={clsx(
+                  'text-2xl font-bold mb-6 font-sans bg-clip-text',
+                  mode === 'dark'
+                    ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                    : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+                )}
               >
                 Семейный врач-стоматолог общей практики
               </h2>
-              <p className="text-gray-700 text-base leading-relaxed max-w-3xl mx-auto font-light">
+              <p
+                className={clsx(
+                  'text-base leading-relaxed max-w-3xl mx-auto font-light',
+                  mode === 'dark' ? 'text-gray-300' : 'text-gray-700',
+                )}
+              >
                 Опытный стоматолог с глубокими знаниями и практическими навыками в диагностике,
                 лечении и профилактике стоматологических заболеваний. Имею обширный опыт работы с
                 пациентами всех возрастов, предоставляя качественное и индивидуальное обслуживание
                 на каждом этапе лечения.
               </p>
-              <p className="text-gray-700 text-base leading-relaxed max-w-3xl mx-auto mt-4 font-light">
+              <p
+                className={clsx(
+                  'text-base leading-relaxed max-w-3xl mx-auto mt-4 font-light',
+                  mode === 'dark' ? 'text-gray-300' : 'text-gray-700',
+                )}
+              >
                 Специализируюсь на создании эффективных планов лечения, внимателен к деталям, владею
                 современными методиками и оборудованием. Моя цель — не только лечение, но и
                 обеспечение комфорта и доверия каждого пациента.
               </p>
-              <p className="text-gray-700 text-base leading-relaxed max-w-3xl mx-auto mt-4 font-light">
+              <p
+                className={clsx(
+                  'text-base leading-relaxed max-w-3xl mx-auto mt-4 font-light',
+                  mode === 'dark' ? 'text-gray-300' : 'text-gray-700',
+                )}
+              >
                 Навыки и направления работы:{' '}
                 <span className="font-semibold">
                   терапевтическая и эстетическая стоматология, профилактика, протезирование,
@@ -115,7 +168,12 @@ const About = () => {
                   onClick={openContactModal}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 cursor-pointer text-lg font-semibold text-gray-800 border-1 border-cyan-300 rounded-full shadow-xl hover:border-white hover:from-cyan-200 hover:to-white hover:text-white hover:bg-cyan-200 w-full max-w-3xs"
+                  className={clsx(
+                    'px-6 py-3 cursor-pointer text-lg font-semibold rounded-full shadow-xl w-full max-w-3xs transition-all duration-300',
+                    mode === 'dark'
+                      ? 'text-white border border-gray-600 hover:bg-gray-800 hover:border-gray-500'
+                      : 'text-gray-800 border border-cyan-300 hover:border-white hover:from-cyan-200 hover:to-white hover:text-white hover:bg-cyan-200',
+                  )}
                 >
                   СВЯЗАТЬСЯ СО МНОЙ
                 </motion.button>

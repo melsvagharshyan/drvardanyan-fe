@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { FaMapMarkerAlt, FaExternalLinkAlt } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 
 const ADDRESS_TEXT = 'Тульская область, город Новомосковск, Трудовые резервы 25, Вита Дент'
 const GOOGLE_MAPS_EMBED = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS_TEXT)}&output=embed`
@@ -10,6 +12,7 @@ const AddressMap = () => {
   const [shouldLoadIframe, setShouldLoadIframe] = useState(false)
   const [isIframeLoaded, setIsIframeLoaded] = useState(false)
   const mapContainerRef = useRef<HTMLDivElement | null>(null)
+  const mode = useSelector((state: any) => state.theme.mode)
 
   useEffect(() => {
     if (shouldLoadIframe) return
@@ -44,7 +47,12 @@ const AddressMap = () => {
         href={GOOGLE_MAPS_LINK}
         target="_blank"
         rel="noreferrer noopener"
-        className="flex-1 inline-flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-cyan-300 to-cyan-600 text-white py-2.5 px-4 rounded-lg font-semibold shadow hover:shadow-lg transition"
+        className={clsx(
+          'flex-1 inline-flex items-center justify-center gap-2 cursor-pointer py-2.5 px-4 rounded-lg font-semibold shadow hover:shadow-lg transition',
+          mode === 'dark'
+            ? 'bg-gray-800 text-white hover:bg-gray-700'
+            : 'bg-gradient-to-r from-cyan-300 to-cyan-600 text-white',
+        )}
       >
         Открыть в Google Maps <FaExternalLinkAlt size={14} />
       </a>
@@ -52,7 +60,12 @@ const AddressMap = () => {
         href={YANDEX_MAPS_LINK}
         target="_blank"
         rel="noreferrer noopener"
-        className="flex-1 inline-flex items-center justify-center gap-2 cursor-pointer bg-white text-cyan-700 border border-cyan-200 py-2.5 px-4 rounded-lg font-semibold shadow hover:shadow-md transition"
+        className={clsx(
+          'flex-1 inline-flex items-center justify-center gap-2 cursor-pointer border py-2.5 px-4 rounded-lg font-semibold shadow hover:shadow-md transition',
+          mode === 'dark'
+            ? 'bg-gray-800 text-white border-gray-700 hover:bg-gray-700'
+            : 'bg-white text-cyan-700 border-cyan-200',
+        )}
       >
         Открыть в Яндекс.Картах <FaExternalLinkAlt size={14} />
       </a>
@@ -61,18 +74,33 @@ const AddressMap = () => {
 
   return (
     <section
-      className="w-full bg-gradient-to-r from-white to-cyan-200 py-10"
+      className={clsx(
+        'w-full py-10 transition-colors duration-300',
+        mode === 'dark'
+          ? 'bg-linear-to-r from-black to-gray-900 text-white'
+          : 'bg-linear-to-r from-white to-cyan-200 text-black',
+      )}
       aria-labelledby="address-title"
     >
       <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
         <header className="text-center mb-8">
           <h2
             id="address-title"
-            className="text-2xl sm:text-3xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text"
+            className={clsx(
+              'text-2xl sm:text-3xl font-bold uppercase font-sans bg-clip-text',
+              mode === 'dark'
+                ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+                : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+            )}
           >
             Где мы находимся?
           </h2>
-          <p className="text-gray-600 mt-2 max-w-2xl mx-auto">
+          <p
+            className={clsx(
+              'mt-2 max-w-2xl mx-auto',
+              mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+            )}
+          >
             Мы находимся по адресу, указанному ниже. Нажмите на карту или используйте ссылки, чтобы
             проложить маршрут.
           </p>
@@ -81,24 +109,59 @@ const AddressMap = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
           <div
             ref={mapContainerRef}
-            className="relative lg:col-span-3 overflow-hidden rounded-2xl shadow-xl border border-cyan-100"
+            className={clsx(
+              'relative lg:col-span-3 overflow-hidden rounded-2xl shadow-xl border',
+              mode === 'dark' ? 'border-gray-700' : 'border-cyan-100',
+            )}
           >
             {!isIframeLoaded && (
               <button
                 type="button"
                 onClick={() => setShouldLoadIframe(true)}
-                className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-white to-cyan-50"
+                className={clsx(
+                  'absolute inset-0 z-10 flex flex-col items-center justify-center gap-3',
+                  mode === 'dark'
+                    ? 'bg-gradient-to-br from-gray-900 to-gray-800'
+                    : 'bg-gradient-to-br from-white to-cyan-50',
+                )}
                 aria-label="Загрузить интерактивную карту"
               >
-                <div className="inline-flex items-center justify-center w-12 h-12 rounded-full border-2 border-cyan-300">
-                  <FaMapMarkerAlt className="text-cyan-600" size={22} />
+                <div
+                  className={clsx(
+                    'inline-flex items-center justify-center w-12 h-12 rounded-full border-2',
+                    mode === 'dark' ? 'border-cyan-400' : 'border-cyan-300',
+                  )}
+                >
+                  <FaMapMarkerAlt
+                    className={mode === 'dark' ? 'text-cyan-400' : 'text-cyan-600'}
+                    size={22}
+                  />
                 </div>
-                <div className="text-gray-700 font-medium">Показать карту</div>
-                <div className="text-xs text-gray-500">
+                <div
+                  className={clsx(
+                    'font-medium',
+                    mode === 'dark' ? 'text-white' : 'text-gray-700',
+                  )}
+                >
+                  Показать карту
+                </div>
+                <div
+                  className={clsx(
+                    'text-xs',
+                    mode === 'dark' ? 'text-gray-400' : 'text-gray-500',
+                  )}
+                >
                   Нажмите, чтобы загрузить интерактивную карту
                 </div>
                 <div className="absolute inset-0 pointer-events-none">
-                  <div className="w-full h-full animate-pulse bg-gradient-to-b from-gray-100/70 to-gray-200/70" />
+                  <div
+                    className={clsx(
+                      'w-full h-full animate-pulse bg-gradient-to-b',
+                      mode === 'dark'
+                        ? 'from-gray-800/70 to-gray-900/70'
+                        : 'from-gray-100/70 to-gray-200/70',
+                    )}
+                  />
                 </div>
               </button>
             )}
@@ -115,11 +178,23 @@ const AddressMap = () => {
             )}
 
             {/* Address + buttons under the map (all breakpoints) */}
-            <div className="bg-white border-t border-cyan-100">
+            <div
+              className={clsx(
+                'border-t',
+                mode === 'dark'
+                  ? 'bg-gray-900 border-gray-700'
+                  : 'bg-white border-cyan-100',
+              )}
+            >
               <div className="p-5 space-y-4">
                 <div className="flex items-start gap-3">
-                  <FaMapMarkerAlt className="mt-1 text-cyan-600" size={20} />
-                  <p className="text-gray-800">{ADDRESS_TEXT}</p>
+                  <FaMapMarkerAlt
+                    className={clsx('mt-1', mode === 'dark' ? 'text-cyan-400' : 'text-cyan-600')}
+                    size={20}
+                  />
+                  <p className={clsx(mode === 'dark' ? 'text-gray-300' : 'text-gray-800')}>
+                    {ADDRESS_TEXT}
+                  </p>
                 </div>
                 <ActionButtons />
               </div>

@@ -3,6 +3,8 @@ import { useMediaQuery } from 'react-responsive'
 import { useMemo } from 'react'
 import Slider from 'react-slick'
 import { routineImages, clientResults } from './utils/constants'
+import { useSelector } from 'react-redux'
+import clsx from 'clsx'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
@@ -10,6 +12,7 @@ const Routine = () => {
   const navigate = useNavigate()
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
   const isTablet = useMediaQuery({ query: '(max-width: 1024px)' })
+  const mode = useSelector((state: any) => state.theme.mode)
 
   const sliderSettings = useMemo(
     () => ({
@@ -35,14 +38,31 @@ const Routine = () => {
   return (
     <section
       id="routine"
-      className="w-full bg-gradient-to-r from-white to-cyan-200 py-16 px-4 sm:px-6 lg:px-8"
+      className={clsx(
+        'w-full py-16 px-4 sm:px-6 lg:px-8 transition-colors duration-300',
+        mode === 'dark'
+          ? 'bg-linear-to-r from-black to-gray-900 text-white'
+          : 'bg-linear-to-r from-white to-cyan-200 text-black',
+      )}
     >
       {/* Routine Header */}
       <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
-        <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
+        <h2
+          className={clsx(
+            'text-2xl sm:text-4xl font-bold uppercase font-sans bg-clip-text',
+            mode === 'dark'
+              ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+              : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+          )}
+        >
           Наша рутина
         </h2>
-        <p className="text-gray-600 text-base sm:text-lg mt-4 max-w-2xl mx-auto">
+        <p
+          className={clsx(
+            'text-base sm:text-lg mt-4 max-w-2xl mx-auto',
+            mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+          )}
+        >
           Заглянем за кулисы работы клиники Варданян
         </p>
       </header>
@@ -73,7 +93,12 @@ const Routine = () => {
       <div className="mt-10 sm:mt-16 flex justify-center">
         <button
           onClick={handleShowMore}
-          className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
+          className={clsx(
+            'relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer py-3 px-8 rounded-full font-semibold group transform hover:scale-105',
+            mode === 'dark'
+              ? 'bg-gray-800 text-white hover:bg-gray-700'
+              : 'bg-gradient-to-r from-cyan-200 to-cyan-500 text-white',
+          )}
         >
           <span className="relative z-10">Показать больше</span>
           <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
@@ -83,10 +108,22 @@ const Routine = () => {
       {/* Client Results Section */}
       <div className="mt-20 pt-16">
         <header className="max-w-screen-xl mx-auto text-center mb-10 sm:mb-12">
-          <h2 className="text-2xl sm:text-4xl font-bold uppercase font-sans bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent bg-clip-text">
+          <h2
+          className={clsx(
+            'text-2xl sm:text-4xl font-bold uppercase font-sans bg-clip-text',
+            mode === 'dark'
+              ? 'bg-linear-to-r from-white via-gray-400 to-white text-transparent'
+              : 'bg-gradient-to-r from-cyan-500 via-cyan-950 to-cyan-500 text-transparent',
+          )}
+        >
             Результаты наших пациентов
           </h2>
-          <p className="text-gray-600 text-base sm:text-lg mt-4 max-w-2xl mx-auto">
+          <p
+          className={clsx(
+            'text-base sm:text-lg mt-4 max-w-2xl mx-auto',
+            mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+          )}
+        >
             Фотографии до и после лечения - наглядное подтверждение качества нашей работы
           </p>
         </header>
@@ -96,7 +133,12 @@ const Routine = () => {
           <Slider {...sliderSettings}>
             {clientResults.map((item) => (
               <div key={item.id} className="px-2">
-                <div className="relative overflow-hidden rounded-xl shadow-lg transition-all duration-300 bg-white">
+                <div
+                  className={clsx(
+                    'relative overflow-hidden rounded-xl shadow-lg transition-all duration-300',
+                    mode === 'dark' ? 'bg-gray-800' : 'bg-white',
+                  )}
+                >
                   {/* Before/After Images */}
                   <div className="relative h-80 sm:h-96 md:h-[28rem]">
                     <div className="absolute top-0 left-0 w-full h-1/2 overflow-hidden">
@@ -124,9 +166,28 @@ const Routine = () => {
 
                   {/* Always Visible Text */}
                   <div className="p-4">
-                    <h3 className="text-lg font-bold text-gray-800 mb-2">{item.title}</h3>
-                    <p className="text-gray-600 text-sm mb-2">{item.description}</p>
-                    <div className="flex justify-between text-xs text-gray-500">
+                    <h3
+                      className={clsx(
+                        'text-lg font-bold mb-2',
+                        mode === 'dark' ? 'text-white' : 'text-gray-800',
+                      )}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={clsx(
+                        'text-sm mb-2',
+                        mode === 'dark' ? 'text-gray-300' : 'text-gray-600',
+                      )}
+                    >
+                      {item.description}
+                    </p>
+                    <div
+                      className={clsx(
+                        'flex justify-between text-xs',
+                        mode === 'dark' ? 'text-gray-400' : 'text-gray-500',
+                      )}
+                    >
                       <span>Возраст: {item.patientAge}</span>
                       <span>Лечение: {item.treatmentDuration}</span>
                     </div>
@@ -141,7 +202,12 @@ const Routine = () => {
         <div className="mt-10 sm:mt-16 flex justify-center">
           <button
             onClick={handleShowMoreResults}
-            className="relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer bg-gradient-to-r from-cyan-200 to-cyan-500 text-white py-3 px-8 rounded-full font-semibold group transform hover:scale-105"
+            className={clsx(
+            'relative overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer py-3 px-8 rounded-full font-semibold group transform hover:scale-105',
+            mode === 'dark'
+              ? 'bg-gray-800 text-white hover:bg-gray-700'
+              : 'bg-gradient-to-r from-cyan-200 to-cyan-500 text-white',
+          )}
           >
             <span className="relative z-10">Смотреть все результаты</span>
             <span className="absolute left-0 top-0 h-full w-full transform -translate-x-full bg-white opacity-10 group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
