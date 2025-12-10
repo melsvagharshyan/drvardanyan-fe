@@ -72,16 +72,14 @@ const VideosPage = () => {
             videos={[
               {
                 id: 'v1',
-                url:
-                  'https://res.cloudinary.com/dxfqf6fgv/video/upload/v1754727983/vahan/AQM1Abu-BQ8DnTzEDvsPODuVsBcveFddqj0FVfpXge4Ad7EX-uJWIXhvhpUbCRkRiGAc_qikCCE-t-0oAs0uO3pgjPiKqDzE_2_lhzbt7.mp4',
+                url: 'https://melsimages.blob.core.windows.net/images/videos-vke/AQM1Abu-BQ8DnTzEDvsPODuVsBcveFddqj0FVfpXge4Ad7EX-uJWIXhvhpUbCRkRiGAc_qikCCE-t-0oAs0uO3pgjPiKqDzE_2_lhzbt7.mp4',
                 title: 'Профессиональная работа — Видео 1',
                 thumbnail:
                   'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661287/vahan/2025-08-08_06.49.57_azze6v.jpg',
               },
               {
                 id: 'v2',
-                url:
-                  'https://res.cloudinary.com/dxfqf6fgv/video/upload/v1754727977/vahan/AQMT9rElo-QHDaQ2pElU1Pc5wMMeRA-9KAaTUB3aYIeSxGXTPl81JAyVluF-9RpeLJP0QVKT_LjJorRHmoEDvjUXgNcsx62d_arqdaq.mp4',
+                url: 'https://melsimages.blob.core.windows.net/images/videos-vke/AQMT9rElo-QHDaQ2pElU1Pc5wMMeRA-9KAaTUB3aYIeSxGXTPl81JAyVluF-9RpeLJP0QVKT_LjJorRHmoEDvjUXgNcsx62d_arqdaq.mp4',
                 title: 'Профессиональная работа — Видео 2',
                 thumbnail:
                   'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661287/vahan/2025-08-08_06.49.57_azze6v.jpg',
@@ -95,5 +93,3 @@ const VideosPage = () => {
 }
 
 export default VideosPage
-
-
