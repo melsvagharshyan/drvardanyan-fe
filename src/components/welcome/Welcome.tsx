@@ -59,7 +59,7 @@ const Welcome = () => {
     >
       <motion.div className="flex items-center gap-3 mb-4" variants={textVariants}>
         <img
-          src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754223427/vahan/download_v2dtpq.svg"
+          src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
           alt="Dr. Vardanyan Logo"
           width={50}
           height={50}

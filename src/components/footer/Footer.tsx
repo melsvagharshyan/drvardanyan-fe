@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
               className="cursor-pointer flex items-center gap-2"
             >
               <img
-                src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754223427/vahan/download_v2dtpq.svg"
+                src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
                 alt="Dr. Vardanyan Logo"
                 width={50}
                 height={50}
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
               aria-label="Homepage"
             >
               <img
-                src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754223427/vahan/download_v2dtpq.svg"
+                src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
                 alt="Dr. Vardanyan Logo"
                 width={50}
                 height={50}
@@ -80,12 +80,7 @@ const Footer: React.FC = () => {
               </span>
             </button>
           )}
-          <p
-            className={clsx(
-              'text-sm',
-              mode === 'dark' ? 'text-gray-400' : 'text-silver',
-            )}
-          >
+          <p className={clsx('text-sm', mode === 'dark' ? 'text-gray-400' : 'text-silver')}>
             Профессиональная платформа для представления стоматологических услуг, связи с пациентами
             и записи на приём.
           </p>
@@ -217,9 +212,7 @@ const Footer: React.FC = () => {
       <div
         className={clsx(
           'w-full mt-6 border-t pt-4 text-center md:text-right text-xs',
-          mode === 'dark'
-            ? 'border-gray-700 text-gray-400'
-            : 'border-gray-600 text-gray-400',
+          mode === 'dark' ? 'border-gray-700 text-gray-400' : 'border-gray-600 text-gray-400',
         )}
       >
         © {new Date().getFullYear()} Dr. Vardanyan. Все права защищены.
