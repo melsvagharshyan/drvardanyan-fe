@@ -1,40 +1,41 @@
+import cert1 from '~/assets/vahan-images/AA_Nº_018793_page-0001_1_-Photoroom_ygnhg0.png'
+import cert2 from '~/assets/vahan-images/AD_Nº_096225_page-0001-Photoroom_phdacq.png'
+import cert3 from '~/assets/vahan-images/White_and_Grey_Bordered_Simple_Certificate_of_Appreciation_dvjpqd.png'
+import cert4 from '~/assets/vahan-images/Blue_Minimalist_Certificate_Of_Achievement_q0bhte.png'
+import cert5 from '~/assets/vahan-images/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_1_jd1dcw.png'
+import certLarge1 from '~/assets/vahan-images/2025-08-08_06.36.38_g2wjwk.jpg'
+import certLarge2 from '~/assets/vahan-images/2025-08-08_06.36.51_kyk6dh.jpg'
+
 export const certifications = [
   {
     id: 1,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754625985/vahan/AA_N%C2%BA_018793_page-0001_1_-Photoroom_ygnhg0.png',
+    image: cert1,
   },
   {
     id: 2,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754626003/vahan/AD_N%C2%BA_096225_page-0001-Photoroom_phdacq.png',
+    image: cert2,
   },
   {
     id: 3,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754311799/vahan/White_and_Grey_Bordered_Simple_Certificate_of_Appreciation_dvjpqd.png',
+    image: cert3,
   },
   {
     id: 4,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754657321/vahan/Blue_Minimalist_Certificate_Of_Achievement_q0bhte.png',
+    image: cert4,
   },
   {
     id: 5,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754726204/vahan/Black_White_and_Gold_Elegant_Modern_Medical_Appreciation_Certificate_1_jd1dcw.png',
+    image: cert5,
   },
 ]
 
 export const certificationsLarge = [
   {
     id: 1,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754660267/vahan/2025-08-08_06.36.38_g2wjwk.jpg',
+    image: certLarge1,
   },
   {
     id: 2,
-    image:
-      'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754660272/vahan/2025-08-08_06.36.51_kyk6dh.jpg',
+    image: certLarge2,
   },
 ]

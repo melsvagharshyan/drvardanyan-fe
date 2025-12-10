@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux'
 import clsx from 'clsx'
 import video1 from '~/assets/videos/AQM1Abu-BQ8DnTzEDvsPODuVsBcveFddqj0FVfpXge4Ad7EX-uJWIXhvhpUbCRkRiGAc_qikCCE-t-0oAs0uO3pgjPiKqDzE_2_lhzbt7 (2).mp4'
 import video2 from '~/assets/videos/AQMT9rElo-QHDaQ2pElU1Pc5wMMeRA-9KAaTUB3aYIeSxGXTPl81JAyVluF-9RpeLJP0QVKT_LjJorRHmoEDvjUXgNcsx62d_arqdaq (2).mp4'
+import thumbnailImage from '~/assets/vahan-images/2025-08-08_06.49.57_azze6v.jpg'
 
 const VideosPage = () => {
   const navigate = useNavigate()
@@ -75,15 +76,13 @@ const VideosPage = () => {
                 id: 'v1',
                 url: video1,
                 title: 'Профессиональная работа — Видео 1',
-                thumbnail:
-                  'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661287/vahan/2025-08-08_06.49.57_azze6v.jpg',
+                thumbnail: thumbnailImage,
               },
               {
                 id: 'v2',
                 url: video2,
                 title: 'Профессиональная работа — Видео 2',
-                thumbnail:
-                  'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754661287/vahan/2025-08-08_06.49.57_azze6v.jpg',
+                thumbnail: thumbnailImage,
               },
             ]}
           />

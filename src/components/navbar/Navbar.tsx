@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { toggleTheme } from '~/app/slices/themeSlice'
 import { useMediaQuery } from 'react-responsive'
+import logoImage from '~/assets/vahan-images/k2s4gzbn76tgozvhjvz2.png'
 
 const Navbar = () => {
   const location = useLocation()
@@ -161,7 +162,7 @@ const Navbar = () => {
           aria-label="Homepage"
         >
           <img
-            src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
+            src={logoImage}
             alt="Dr. Vardanyan Logo"
             width={50}
             height={50}
@@ -187,7 +188,7 @@ const Navbar = () => {
           aria-label="Homepage"
         >
           <img
-            src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
+            src={logoImage}
             alt="Dr. Vardanyan Logo"
             width={50}
             height={50}

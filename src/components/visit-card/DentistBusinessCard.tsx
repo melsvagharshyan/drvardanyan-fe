@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { Mail, Phone, MessageCircle, Instagram, Share2, MapPin, Clock, Award } from 'lucide-react'
 import { toBlob } from 'html-to-image'
+import VahanImage from '~/assets/vahan-images/2025-08-07_10.06.37_mxr8hm.jpg'
 
 export default function DentistBusinessCard() {
   const [copied, setCopied] = useState('')
@@ -91,7 +92,7 @@ export default function DentistBusinessCard() {
               <div className="relative -mt-12 mb-4 flex justify-center">
                 <div className="w-24 h-24 rounded-full border-4 border-white shadow-lg overflow-hidden bg-gradient-to-br from-cyan-500 to-blue-600">
                   <img
-                    src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754586434/vahan/2025-08-07_10.06.37_mxr8hm.jpg"
+                    src={VahanImage}
                     alt="Dr. Ваган Варданян"
                     className="w-full h-full object-cover"
                     onError={(e) => {

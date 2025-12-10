@@ -4,6 +4,7 @@ import { Link as ScrollLink } from 'react-scroll'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
+import logoImage from '~/assets/vahan-images/k2s4gzbn76tgozvhjvz2.png'
 
 const Footer: React.FC = () => {
   const location = useLocation()
@@ -40,7 +41,7 @@ const Footer: React.FC = () => {
               className="cursor-pointer flex items-center gap-2"
             >
               <img
-                src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
+                src={logoImage}
                 alt="Dr. Vardanyan Logo"
                 width={50}
                 height={50}
@@ -66,7 +67,7 @@ const Footer: React.FC = () => {
               aria-label="Homepage"
             >
               <img
-                src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
+                src={logoImage}
                 alt="Dr. Vardanyan Logo"
                 width={50}
                 height={50}

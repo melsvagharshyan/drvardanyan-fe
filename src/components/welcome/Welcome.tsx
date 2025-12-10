@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import logoImage from '~/assets/vahan-images/k2s4gzbn76tgozvhjvz2.png'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -59,7 +60,7 @@ const Welcome = () => {
     >
       <motion.div className="flex items-center gap-3 mb-4" variants={textVariants}>
         <img
-          src="https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754241363/reccomendations/k2s4gzbn76tgozvhjvz2.png"
+          src={logoImage}
           alt="Dr. Vardanyan Logo"
           width={50}
           height={50}

@@ -3,14 +3,12 @@ import { useMediaQuery } from 'react-responsive'
 import { useContactModal } from '~/contexts/ContactModalContext'
 import { useSelector } from 'react-redux'
 import clsx from 'clsx'
+import VahanImage from '~/assets/vahan-images/2025-08-07_10.06.37_mxr8hm.jpg'
 
 const About = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 1140px)' })
   const { openContactModal } = useContactModal()
   const mode = useSelector((state: any) => state.theme.mode)
-
-  const VahanImage =
-    'https://res.cloudinary.com/dxfqf6fgv/image/upload/v1754586434/vahan/2025-08-07_10.06.37_mxr8hm.jpg'
 
   return (
     <section
