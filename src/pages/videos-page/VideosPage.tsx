@@ -30,7 +30,6 @@ const VideosPage = () => {
         )}
       >
         <div className="max-w-screen-xl mx-auto">
-          {/* Header with back button */}
           <div className="flex items-center mb-8">
             <button
               onClick={handleBack}
