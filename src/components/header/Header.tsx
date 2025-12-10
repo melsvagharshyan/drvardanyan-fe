@@ -3,6 +3,7 @@ import Navbar from '../navbar/Navbar'
 import { useMediaQuery } from 'react-responsive'
 import { useContactModal } from '~/contexts/ContactModalContext'
 import { Link as ScrollLink } from 'react-scroll'
+import HedaderImage from '~/assets/vahan-images/header_tm8g0a.jpg'
 
 const textVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -46,7 +47,7 @@ const Header = () => {
       style={{
         backgroundImage: isMobile
           ? `url(https://i.pinimg.com/1200x/71/6c/52/716c52a15d910375bff29750833ee0a1.jpg)`
-          : `url(https://res.cloudinary.com/dxfqf6fgv/image/upload/v1746817119/header_tm8g0a.jpg)`,
+          : `url(${HedaderImage})`,
       }}
     >
       <Navbar />
